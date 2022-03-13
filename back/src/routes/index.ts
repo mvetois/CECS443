@@ -1,7 +1,8 @@
 /* ----- Imports ----- */
 
-import { Request, Response } from "express";
-import { Router } from "express";
+import { Router, Request, Response } from "express";
+
+import User from "./user/index"
 
 /* ----- Code ----- */
 
@@ -26,5 +27,7 @@ const router : Router = Router();
 router.get("/", (req : Request, res : Response) => {
     res.status(200).send("API is running");
 });
+
+router.use("/user", User)
 
 export default router;
