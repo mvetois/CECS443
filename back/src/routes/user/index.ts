@@ -3,12 +3,14 @@
 import { Router, Request, Response } from "express";
 
 import Register from "./register.user";
+import Login from "./login.user";
 
 /* ----- Code ----- */
 
 const router : Router = Router();
 
 router.use("/register", Register);
+router.use("/login", Login);
 
 /**
  * @swagger
