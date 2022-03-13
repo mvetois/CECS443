@@ -22,7 +22,7 @@ const router : Router = Router();
  *         in: formData
  *         required: true
  *         type: string
- *       - name: email
+ *       - name: password
  *         description: User's password.
  *         in: formData
  *         required: true
