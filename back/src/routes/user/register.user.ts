@@ -59,7 +59,7 @@ router.post("/", async (req : Request, res : Response) => {
     const user = new User({email: req.body.email, password: req.body.password});
     await user.save();
     //JTW Token to return
-    return (res.status(200).send("User created !"));
+    return (res.status(201).send("User created !"));
 });
 
 export default router;
