@@ -14,6 +14,7 @@ const router : Router = Router();
  *   get:
  *     summary: Ping the API.
  *     description: Check if the API is online.
+ *     tags: [Ping]
  *     responses:
  *       200:
  *         description: The API response.
