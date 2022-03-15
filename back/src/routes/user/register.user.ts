@@ -2,6 +2,8 @@
 
 import { Router, Request, Response } from "express";
 
+import { signAccessToken } from "../../helpers/jtw";
+
 import { User } from "../../models/User.model";
 
 /* ----- Code ----- */
@@ -58,8 +60,9 @@ router.post("/", async (req : Request, res : Response) => {
 
     const user = new User({email: req.body.email, password: req.body.password});
     await user.save();
-    //JTW Token to return
-    return (res.status(201).send("User created !"));
+
+    const accessToken : Promise<any> = await signAccessToken(req.body.email);
+    return (res.status(201).send({token: accessToken}));
 });
 
 export default router;

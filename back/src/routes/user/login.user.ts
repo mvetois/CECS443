@@ -2,6 +2,8 @@
 
 import { Router, Request, Response } from "express";
 
+import { signAccessToken } from "../../helpers/jtw";
+
 import { User } from "../../models/User.model";
 
 /* ----- Code ----- */
@@ -57,8 +59,8 @@ router.post("/", async (req : Request, res : Response) => {
     if (!user)
         return (res.status(400).send({error: "User not found"}));
 
-    //JTW Token to return
-    return (res.status(200).send("User logged in !"));
+    const accessToken : Promise<any> = await signAccessToken(req.body.email);
+    return (res.status(200).send({token: accessToken}));
 });
 
 export default router;
