@@ -58,10 +58,10 @@ router.post("/", async (req : Request, res : Response) => {
     if(await User.findOne({email: req.body.email}))
         return (res.status(400).send({error: "Email already exists"}));
 
-    const user = new User({email: req.body.email, password: req.body.password});
+    const user = new User({email: req.body.email, password: req.body.password, admin: false});
     await user.save();
 
-    const accessToken : Promise<any> = await signAccessToken(req.body.email);
+    const accessToken : Promise<any> = await signAccessToken(user.email, user.admin);
     return (res.status(201).send({token: accessToken}));
 });
 

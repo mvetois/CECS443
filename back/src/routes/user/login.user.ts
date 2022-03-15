@@ -59,7 +59,7 @@ router.post("/", async (req : Request, res : Response) => {
     if (!user)
         return (res.status(400).send({error: "User not found"}));
 
-    const accessToken : Promise<any> = await signAccessToken(req.body.email);
+    const accessToken : Promise<any> = await signAccessToken(user.email, user.admin);
     return (res.status(200).send({token: accessToken}));
 });
 
