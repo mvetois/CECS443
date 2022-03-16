@@ -1,11 +1,12 @@
 /* ----- Imports ----- */
 
+import { Options } from "swagger-jsdoc";
 
 /* ----- Code ----- */
 
-const SwaggerOptions = {
-    definition: {
-        openapi: "3.0.0",
+const SwaggerOptions : Options = {
+    swaggerDefinition: {
+        openapi: "3.0.1",
         info: {
             title: "Epitech document displayer API",
             version: "1.0.0",
@@ -25,8 +26,19 @@ const SwaggerOptions = {
                 url: "http://localhost:5000/api/",
             },
         ],
+        components: {
+            securitySchemes: {
+                JWT: {
+                    type: "http",
+                    scheme: "bearer",
+                    in: "header",
+                    bearerFormat: "JWT"
+                },
+            }
+        },
     },
     apis: ["src/**/*.ts"],
+    swagger: "2.0"
 };
 
 export default SwaggerOptions;
