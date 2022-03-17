@@ -1,4 +1,4 @@
-import {Switch, Route} from 'reach-router-dom';
+import { Link } from 'react-router-dom';
 
 import React, {Component} from 'react';
 //import Login from "./pages/accounts/Login";
@@ -14,6 +14,11 @@ class App extends Component {
     render() {
         return (
             <div className="App">
+                <nav>
+                    <Link to="/test1">Test 1</Link>
+                    <br />
+                    <Link to="/test2">Test 2</Link>
+                </nav>
                 <header className="App-header">
                     Hello World!
                 </header>
