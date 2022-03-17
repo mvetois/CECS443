@@ -15,9 +15,9 @@ class App extends Component {
         return (
             <div className="App">
                 <nav>
-                    <Link to="/test1">Test 1</Link>
+                    <Link to="/login">Login</Link>
                     <br />
-                    <Link to="/test2">Test 2</Link>
+                    <Link to="/register">Register</Link>
                 </nav>
                 <header className="App-header">
                     Hello World!
