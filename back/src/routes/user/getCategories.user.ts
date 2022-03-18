@@ -2,9 +2,9 @@
 
 import { Router, Request, Response } from "express";
 
-import { signAccessToken, verifyAccessToken } from "../../helpers/jtw";
+import { verifyAccessToken } from "../../helpers/jtw";
 
-import { Categories } from "../../models/Categories.model";
+import { Data, ICategory } from "../../models/Data.model";
 
 /* ----- Code ----- */
 
@@ -22,7 +22,7 @@ const router : Router = Router();
  *       - application/json
  *     responses:
  *       200:
- *         description: Created
+ *         description: OK
  *         content:
  *           application/json:
  *             schema:
@@ -58,10 +58,17 @@ const router : Router = Router();
  */
 router.get("/", verifyAccessToken,  async (req : Request, res : Response) => {
 
-    const categoriesList = await Categories.find({}, {'_id': false});
-    if (!categoriesList)
+    const categories : ICategory[] = await Data.find({}, {"_id": false});
+    if (!categories)
         return (res.status(400).send({error: "Their is no categories"}));
-    return (res.status(200).send(categoriesList));
+    const formatedCategories = categories.map((item) => ({
+        name: item.name,
+        subcategories: item.subcategories.reduce((acc, cur) => {
+            return [...acc, { name: cur.name }];
+        }, [])
+    }));
+
+    return (res.status(200).send(formatedCategories));
 });
 
 export default router;
