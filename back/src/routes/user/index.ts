@@ -4,6 +4,7 @@ import { Router, Request, Response } from "express";
 
 import Register from "./register.user";
 import Login from "./login.user";
+import UpdatePassword from "./updpwd.user";
 import GetCategories from "./getCategories.user";
 import GetData from "./getData.user";
 
@@ -13,6 +14,7 @@ const router : Router = Router();
 
 router.use("/register", Register);
 router.use("/login", Login);
+router.use("/updatepassword", UpdatePassword);
 router.use("/getcategories", GetCategories);
 router.use("/getdata", GetData);
 
