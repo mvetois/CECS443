@@ -18,17 +18,25 @@ const router : Router = Router();
  *     tags: [Users]
  *     produces:
  *       - application/json
- *     parameters:
- *       - name: email
- *         description: User's email.
- *         in: formData
+ *     consumes:
+ *       - application/json
+ *     requestBody:
+ *         description: User's data for the register.
  *         required: true
- *         type: string
- *       - name: password
- *         description: User's password.
- *         in: formData
- *         required: true
- *         type: string
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               required:
+ *                 - email
+ *                 - password
+ *               properties:
+ *                 email:
+ *                   type: string
+ *                   description: User's email.
+ *                 password:
+ *                   type: string
+ *                   description: User's password.
  *     responses:
  *       201:
  *         description: Created
@@ -52,7 +60,7 @@ const router : Router = Router();
  *                   descriptipn: Error message.
  */
 router.post("/", async (req : Request, res : Response) => {
-    if (!req.body.email && !req.body.password)
+    if (!req.body.email || !req.body.password)
         return (res.status(400).send({error: "Email and password are required"}));
 
     if(await User.findOne({email: req.body.email}))
