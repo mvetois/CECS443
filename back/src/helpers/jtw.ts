@@ -44,7 +44,6 @@ export const verifyAccessTokenAdmin = (req, res, next) => {
     }
     const barer =  req.headers['authorization'].split(' ');
     const token = barer[1];
-    console.log(token);
     JWT.verify(token, secret, (err, payload) => {
         if (err || !payload.admin) {
             return (next(res.status(401).send({error: "Invalid access token"})));
