@@ -94,7 +94,7 @@ const router : Router = Router();
  */
 router.post("/", verifyAccessTokenAdmin, async (req : Request, res : Response) => {
     if (!req.body.category || !req.body.subcategory || !req.body.data)
-        return (res.status(400).send({error: "Category and subcategory are required"}));
+        return (res.status(400).send({error: "Category, subcategory and data are required"}));
     if (!req.body.data.name || !req.body.data.description || !req.body.data.lang || !req.body.data.data)
         return (res.status(400).send({error: "Name, description, lang and data are required"}));
     if (req.body.data.lang !== "FR" && req.body.data.lang !== "EN")
