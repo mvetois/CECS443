@@ -3,6 +3,7 @@
 import { Router, Request, Response } from "express";
 
 import User from "./user/index"
+import Admin from "./admin/index"
 
 /* ----- Code ----- */
 
@@ -30,5 +31,6 @@ router.get("/", (req : Request, res : Response) => {
 });
 
 router.use("/user", User)
+router.use("/admin", Admin)
 
 export default router;
