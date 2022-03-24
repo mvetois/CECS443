@@ -2,6 +2,8 @@
 
 import { Router, Request, Response } from "express";
 
+import { verifyAccessTokenAdmin } from "../../../helpers/jtw";
+
 import { Data, ICategory, ISubcategory } from "../../../models/Data.model";
 
 /* ----- Code ----- */
@@ -70,7 +72,7 @@ const router : Router = Router();
  *                   type: string
  *                   descriptipn: Error message.
  */
-router.post("/", async (req : Request, res : Response) => {
+router.post("/", verifyAccessTokenAdmin, async (req : Request, res : Response) => {
     if (!req.body.category || !req.body.subcategory)
         return (res.status(400).send({ error : "Category and subcategory are required" }));
     const category : ICategory = await Data.findOne({name: req.body.category});
