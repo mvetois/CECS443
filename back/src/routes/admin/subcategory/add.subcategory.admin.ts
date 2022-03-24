@@ -23,7 +23,7 @@ const router : Router = Router();
  *     consumes:
  *       - application/json
  *     requestBody:
- *       description: Data's data for add.
+ *       description: Subcategory's data to add.
  *       required: true
  *       content:
  *         application/json:
