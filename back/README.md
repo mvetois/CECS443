@@ -42,6 +42,18 @@ $> npm run build
 $> npm start
 ```
 
+## Testing the backend
+
+For testing the backend, you can run the following command:
+
+```bash
+# Build the backend
+$> npm run build
+
+# Run the integration tests
+$> npm run test:ci
+```
+
 ## Usefull links
 
 - API [http://localhost:5000/api](http://localhost:5000/)
