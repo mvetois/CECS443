@@ -32,7 +32,6 @@ const router : Router = Router();
  *             required:
  *               - category
  *               - subcategory
- *               - data
  *             properties:
  *               category:
  *                 type: string
