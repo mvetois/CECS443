@@ -28,7 +28,7 @@ describe("POST - User change password", () => {
         }).set("Authorization", "bearer " + auth.token);
         expect(response.status).to.equal(400);
     });
-    it("User error auth change password", async () => {
+    it("Unauthorized", async () => {
         const response = await supertest(app).post("/api/user/updatepassword").send({
             email: "test@test.com",
             password: "ThisIsANewPassword",
