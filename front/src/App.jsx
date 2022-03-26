@@ -1,8 +1,11 @@
-import { Link } from 'react-router-dom';
-
 import React, {Component} from 'react';
-//import Login from "./pages/accounts/Login";
-//import Register from "./pages/accounts/Register";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom"
+
+import Navbar from "./components/Navbar";
+import Login from "./routes/accounts/login";
+import Register from "./routes/accounts/register";
+
+
 //import Account from "./pages/accounts/Account";
 
 //import {Container} from "react-bootstrap";
@@ -13,15 +16,14 @@ import './App.css';
 class App extends Component {
     render() {
         return (
-            <div className="App">
-                <nav>
-                    <Link to="/login">Login</Link>
-                    <br />
-                    <Link to="/register">Register</Link>
-                </nav>
-                <header className="App-header">
-                    Hello World!
-                </header>
+            <div>
+                <BrowserRouter>
+                    <Navbar />
+                    <Routes>
+                        <Route path="/" element={<Login />} />
+                        <Route path="/register" element={<Register />} />
+                    </Routes>
+                </BrowserRouter>
             </div>
         )
     }
