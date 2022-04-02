@@ -1,6 +1,7 @@
 import VectorIcon from '../assets/Vector.png';
 import { useNavigate } from 'react-router-dom';
 import NavBarDropDown from './NavBarDropDown';
+import ThemeToggle from './ThemeToggle';
 const Navbar = () => {
     const navigate = useNavigate();
     const options = [{
@@ -20,7 +21,10 @@ const Navbar = () => {
                 height: 80
             }}>
             <img src={VectorIcon} width="150" />
-            <NavBarDropDown options={options} />
+            <div style={{ display: 'flex', alignItems: 'center'}}>
+                <NavBarDropDown options={options} />
+                <ThemeToggle colorOne="black" colorTwo="white" />
+            </div>
         </div>
     );
 }
