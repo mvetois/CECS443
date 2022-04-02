@@ -1,3 +1,4 @@
+import React from "react";
 import {Button, Card, Form} from "react-bootstrap";
 import { useState } from 'react';
 
@@ -19,6 +20,7 @@ const Register = () => {
                 type="text"
                 style={{
                     width: '50vw',
+                    paddingInline: '5px',
                     borderRadius: 10
                 }}
                 value={email}
@@ -26,9 +28,10 @@ const Register = () => {
                 placeholder="Email"
             />
             <input
-                type="text"
+                type="password"
                 style={{
                     width: '50vw',
+                    paddingInline: '5px',
                     marginTop: 25,
                     borderRadius: 10
                 }}
@@ -37,15 +40,16 @@ const Register = () => {
                 placeholder="Password"
             />
             <input
-                type="text"
+                type="password"
                 style={{
                     width: '50vw',
+                    paddingInline: '5px',
                     marginTop: 25,
                     borderRadius: 10
                 }}
                 value={repeatPwd}
                 onChange={e => setRepeatPwd(e.target.value)}
-                placeholder="Repeat password"
+                placeholder="Confirm password"
             />
             <button
                 onClick={() => {}}

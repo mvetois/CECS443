@@ -1,3 +1,4 @@
+import React from 'react';
 import {Button, Card, Form, Nav} from "react-bootstrap";
 import { useState } from 'react';
 
@@ -19,6 +20,7 @@ const Login = () => {
                 type="text"
                 style={{
                     width: '50vw',
+                    paddingInline: '5px',
                     borderRadius: 10
                 }}
                 value={email}
@@ -26,9 +28,10 @@ const Login = () => {
                 placeholder="email"
             />
           <input
-              type="text"
+              type="password"
               style={{
                   width: '50vw',
+                  paddingInline: '5px',
                   marginTop: 25,
                   borderRadius: 10
               }}
