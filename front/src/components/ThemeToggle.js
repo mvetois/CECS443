@@ -4,6 +4,7 @@ const ThemeToggle = ({
     colorTwo = "black",
     colorTwoToggle = () => {}
                      }) => {
+
     return (
         <div
             style={{
