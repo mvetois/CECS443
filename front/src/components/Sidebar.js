@@ -24,7 +24,7 @@ export default class Sidebar extends Component {
 
     render = () => {
         return (
-            <div style={{background: '#c4c4c4', height: '100%', width: "20%", padding: '10px', position: 'fixed'}}>
+            <div style={{background: '#c4c4c4', height: '100%', width: "20%", padding: '10px'}}>
                 {this.state.categories.map((cat, index) => {
                     return <div key={index}>{cat}</div>;
                 })}
