@@ -47,6 +47,14 @@ body {
   height: 100%
 }
 
+input.dataInput {
+  border-radius: 50px;
+}
+
+input.descBox {
+  width: 100%;
+  border-radius: 20px;
+}
 
 /*
 Sidebar styling
