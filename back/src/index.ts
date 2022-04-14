@@ -12,6 +12,7 @@ require("./initDB");
 /* ----- Code ----- */
 
 const app : Express = express();
+var cookies = require("cookie-parser");
 const port = 5000;
 
 app.listen(port, () => {
@@ -19,6 +20,17 @@ app.listen(port, () => {
 });
 
 app.use(express.json());
+
+app.use((req, res, next) => {
+    res.append('Access-Control-Allow-Origin', 'http://127.0.0.1:3000');
+    res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.append('Access-Control-Allow-Headers', 'Content-Type, authorization');
+    res.append('Access-Control-Expose-Headers', 'Set-Cookie');
+    res.append('Access-Control-Allow-Credentials', 'true');
+    next();
+});
+
+app.use(cookies());
 
 app.use("/doc", swaggerUi.serve ,swaggerUi.setup(swaggerJSDoc(SwaggerOptions)));
 

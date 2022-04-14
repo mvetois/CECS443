@@ -24,11 +24,14 @@ export const signAccessToken = (userID : string, admin : boolean) : Promise<any>
 }
 
 export const verifyAccessToken = (req, res, next) => {
-    if (!req.headers["authorization"]) {
-        return(next(res.status(401).send({error: "Access token is required"})));
-    }
-    const barer =  req.headers['authorization'].split(' ');
-    const token = barer[1];
+    let token = null;
+    //Token provided in headers
+    if(req.headers["authorization"]) token = req.headers["authorization"].split(' ')[1];
+    //Token provided in cookies
+    else if (req.cookies["accessToken"]) token = req.cookies["accessToken"];
+    //No access token provided
+    else return(next(res.status(401).send({error: "Access token is required"})));
+    
     JWT.verify(token, secret, (err, payload) => {
         if (err) {
             return (next(res.status(401).send({error: "Invalid access token"})));
@@ -39,11 +42,14 @@ export const verifyAccessToken = (req, res, next) => {
 }
 
 export const verifyAccessTokenAdmin = (req, res, next) => {
-    if (!req.headers["authorization"]) {
-        return(next(res.status(401).send({error: "Access token is required"})));
-    }
-    const barer =  req.headers['authorization'].split(' ');
-    const token = barer[1];
+    let token = null;
+    //Token provided in headers
+    if(req.headers["authorization"]) token = req.headers["authorization"].split(' ')[1];
+    //Token provided in cookies
+    else if (req.cookies["accessToken"]) token = req.cookies["accessToken"];
+    //No access token provided
+    else return(next(res.status(401).send({error: "Access token is required"})));
+    
     JWT.verify(token, secret, (err, payload) => {
         if (err || !payload.admin) {
             return (next(res.status(401).send({error: "Invalid access token"})));
