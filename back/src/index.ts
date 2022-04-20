@@ -20,6 +20,13 @@ app.listen(port, () => {
 
 app.use(express.json());
 
+app.use((req, res, next) => {
+    res.append('Access-Control-Allow-Origin', 'http://127.0.0.1:3000');
+    res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.append('Access-Control-Allow-Headers', 'Content-Type, authorization');
+    next();
+});
+
 app.use("/doc", swaggerUi.serve ,swaggerUi.setup(swaggerJSDoc(SwaggerOptions)));
 
 app.use("/api", routes);
