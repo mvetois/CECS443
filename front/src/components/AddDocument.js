@@ -66,7 +66,7 @@ export default class AddDocument extends Component {
                                             label="Français"
                                             name="lang"
                                             type="radio"
-                                            aria-label="fr"
+                                            aria-label="FR"
                                             required
                                         />
                                         <Form.Check
@@ -74,7 +74,7 @@ export default class AddDocument extends Component {
                                             label="English"
                                             name="lang"
                                             type="radio"
-                                            aria-label="eng"
+                                            aria-label="EN"
                                             required
                                         />
                                     </div>
