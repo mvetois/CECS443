@@ -6,8 +6,6 @@ import { signAccessToken } from "../../helpers/jtw";
 
 import { User } from "../../models/User.model";
 
-const cookie = require('cookie');
-
 /* ----- Code ----- */
 
 const router : Router = Router();
@@ -70,14 +68,6 @@ router.post("/", async (req : Request, res : Response) => {
         return (res.status(400).send({error: "User not found"}));
 
     const accessToken : Promise<any> = await signAccessToken(user.email, user.admin);
-    res.setHeader('Set-Cookie', cookie.serialize("accessToken", accessToken, {
-        path: "/",
-        sameSite: true,
-        httpOnly: true,
-        secure: true,
-        maxAge: 60*60*2 //2 hours
-    }))
-
     return (res.status(200).send({token: accessToken}));
 });
 
