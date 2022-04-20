@@ -121,19 +121,7 @@ const getData = async () => {
 
 //Testing logging out
 const logout = async () => {
-    fetch("http://127.0.0.1:5000/api/user/logout", {
-        method: 'POST',
-        headers: {
-            "authorization": "Bearer " + token
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log("Success:", data);
-    })
-    .catch((error) => {
-        console.error("Error:", error);
-    });
+    //TODO Create a file that handles the API requests and handles storage of access token
 }
 
 //Testing logging in
@@ -193,7 +181,6 @@ const Testing = () => {
             <Button variant="secondary" onClick={ping}>Ping</Button>
             <Button variant="primary" onClick={register}>Register</Button>
             <Button variant="success" onClick={login}>Login</Button>
-            <Button variant="danger" onClick={logout}>Logout</Button>
             <br />
             <Button variant="dark" onClick={getCategories}>Get categories</Button>
             <Button variant="success" onClick={addSubcat}>Add subcategory</Button>
