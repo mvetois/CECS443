@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Modal, Button, Form } from "react-bootstrap";
+import { addData } from "../Backend";
 
 //Modal that allows user to add a document
 export default class AddDocument extends Component {
@@ -22,26 +23,28 @@ export default class AddDocument extends Component {
 
     //Changes the state whenever the form is modified
     handleChange = (event) => {
+        let val = event.target.value;
+
         //Doing this to handle radio button input
-        if(event.target.id == "lang") event.target.value = event.target.ariaLabel;
-        
+        if(event.target.id == "lang") val = event.target.ariaLabel;
+        else if(event.target.id == "file") val = event.target.files[0];
+
         this.setState((prevState) => {
             return {
                 formInput: {
                     ...prevState.formInput,
-                    [event.target.id]: event.target.value
+                    [event.target.id]: val
                 }
             }
-        })
+        });
     }
 
     //Submits the data entered in the add document form
     submitForm = (event) => {
         event.preventDefault();
         this.handleClose();
-        console.log(this.state.formInput);
-        //TODO Handle document submission with backend
-
+        //TODO Pass down the category and subcategory through props to provide in the addData parameters
+        addData("testCI", "subcat1", this.state.formInput.title, this.state.formInput.desc, this.state.formInput.lang, this.state.formInput.file)
         this.setState({formInput: {}});
     }
 
@@ -54,7 +57,7 @@ export default class AddDocument extends Component {
                         <Modal.Title>Add a new document</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <Form onSubmit={this.submitForm} style={{}}>
+                        <Form onSubmit={this.submitForm}>
                             <div style={{display: "flex", marginBottom: "10px"}}>
                                 <Form.Group controlId="title" onChange={this.handleChange} style={{width: "100%", marginRight: "100px"}}>
                                     <Form.Control className="dataInput" placeholder="Title of the document" required />

@@ -93,29 +93,39 @@ export const getData = async (category, subcategory) => {
 //Upload data to a given category and subcategory using the provided information
 export const addData = async (category, subcategory, name, desc, lang, data) => {
 	let token = getToken();
-
-    return fetch("http://127.0.0.1:5000/api/admin/data/add", {
-        method: 'POST',
-        headers: {
-            "Content-Type": "application/json",
-            "authorization": "Bearer " + token
-        },
-        body: JSON.stringify({
-            "category": category,
-            "subcategory": subcategory,
-            "data": {
-              "name": name,
-              "description": desc,
-              "lang": lang,
-              "data": data
-            }
-          })
+    
+    //Converting data to Base64
+    let toBase64 = new Promise((resolve, reject) => {
+        let reader = new FileReader();
+        reader.readAsDataURL(data);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = (error) => reject(error)
+    });    
+    return toBase64.then((convertedFile) => {
+        return fetch("http://127.0.0.1:5000/api/admin/data/add", {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "authorization": "Bearer " + token
+            },
+            body: JSON.stringify({
+                "category": category,
+                "subcategory": subcategory,
+                "data": {
+                  "name": name,
+                  "description": desc,
+                  "lang": lang,
+                  "data": convertedFile
+                }
+              })
+        })
+        .then(response => response.json())
+        .then(data=>{
+            if(data.error != undefined) 
+                throw new Error(data.error);
+        });
     })
-    .then(response => response.json())
-    .then(data=>{
-		if(data.error != undefined) 
-			throw new Error(data.error);
-	});
+    
 }
 
 //Delete data from a given category and subcategory
