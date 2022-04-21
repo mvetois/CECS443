@@ -1,4 +1,18 @@
+import { useNavigate } from "react-router-dom";
+
 const expireTime = 7200000; //2 hours until user is automatically logged out
+
+//Returns true if user is logged in, false otherwise
+export const isLoggedIn = () => {
+    try {
+        if(getToken() == null) return false;
+    }
+    catch(error) {
+        return false;
+    }
+
+    return true;
+}
 
 //Returns the access token if it is not expired, null otherwise
 function getToken() {
@@ -70,6 +84,7 @@ export const login = async (email, password) => {
 //Logs the user out
 export const logout = async () => {
 	window.localStorage.removeItem("token");
+    document.location.reload();
 }
 
 //Returns the data in the given category and subcategory

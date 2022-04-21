@@ -8,10 +8,13 @@ const Navbar = () => {
     const navigate = useNavigate();
     const options = [{
       label: "Login",
-      onClick: () => { navigate('/'); }
+      onClick: () => { navigate('/login'); }
     }, {
         label: "Register",
         onClick: () => { navigate('/register'); }
+    }, {
+        label: "Testing",
+        onClick: () => { navigate('/testing'); }
     }]
     return (
         <div

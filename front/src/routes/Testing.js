@@ -3,7 +3,7 @@ import { Button } from "react-bootstrap";
 import AddDocument from "../components/AddDocument";
 import Sidebar from "../components/Sidebar";
 import { register as test1, login as test2, logout as test3, getData as test4, addData as test5, remData as test6,
-        getCategories as test7, addSubcat as test8, remSubcat as test9} from "../Backend";
+        getCategories as test7, addSubcat as test8, remSubcat as test9, isLoggedIn} from "../Backend";
 
 let token = null;
 
