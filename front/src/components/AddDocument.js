@@ -54,7 +54,7 @@ export default class AddDocument extends Component {
                         <Modal.Title>Add a new document</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <Form onSubmit={this.submitForm}>
+                        <Form onSubmit={this.submitForm} style={{}}>
                             <div style={{display: "flex", marginBottom: "10px"}}>
                                 <Form.Group controlId="title" onChange={this.handleChange} style={{width: "100%", marginRight: "100px"}}>
                                     <Form.Control className="dataInput" placeholder="Title of the document" required />
@@ -88,19 +88,13 @@ export default class AddDocument extends Component {
                                 <Form.Control type="file" className="dataInput" required />
                             </Form.Group>
 
-                            <Button variant="primary" type="submit">
-                                Submit
-                            </Button>
+                            <div style={{width: "100%", textAlign: "center"}}>
+                                <Button className="appColor" variant="primary" type="submit" style={{width: "80%", borderRadius: "25px"}}>
+                                    Submit
+                                </Button>
+                            </div>
                         </Form>
                     </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={this.handleClose}>
-                            Close
-                        </Button>
-                        <Button variant="primary" onClick={this.handleClose}>
-                            Button
-                        </Button>
-                    </Modal.Footer>
                 </Modal>
             </div>
             

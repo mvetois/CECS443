@@ -1,15 +1,15 @@
-const expireTime = 7200000 //2 hours until user is automatically logged out
+const expireTime = 7200000; //2 hours until user is automatically logged out
 
 //Returns the access token if it is not expired, null otherwise
 function getToken() {
 	let token = JSON.parse(window.localStorage.getItem("token"));
 	if(token == null)
-		throw "User is not logged in";
+		throw new Error("User is not logged in");
 	
 	//Token expired
 	if(token.expires < Date.now()) {
 		logout();
-		return null;
+		throw new Error("User is not logged in");
 	}
 
 	//Update expire time every time the access token is used

@@ -47,6 +47,10 @@ body {
   height: 100%
 }
 
+.appColor {
+  background-color: #4fcaff;
+}
+
 input.dataInput {
   border-radius: 50px;
 }

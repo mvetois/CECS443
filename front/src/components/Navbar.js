@@ -15,8 +15,8 @@ const Navbar = () => {
     }]
     return (
         <div
+            className="appColor"
             style={{
-                backgroundColor: "rgb(173, 216, 230)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: 'space-between',

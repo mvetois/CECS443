@@ -53,14 +53,14 @@ const Login = () => {
             />
             <br />
             <button
+                className="appColor"
                 type="submit"
                 style={{
                     marginTop: 20,
                     width: 300,
                     borderRadius: 10,
                     height: 25,
-                    lineHeight: 0,
-                    backgroundColor: '#ADD8E6'
+                    lineHeight: 0
                 }}
             >
                 Log in
