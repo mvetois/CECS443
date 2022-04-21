@@ -1,11 +1,27 @@
 import React from "react";
-import {Button, Card, Form} from "react-bootstrap";
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { register } from "../../Backend";
 
 const Register = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [repeatPwd, setRepeatPwd] = useState('');
+
+    let nav = useNavigate();
+    const handleRegister = (event) => {
+        event.preventDefault();
+
+        if(password != repeatPwd) {
+            alert("Error: Passwords do not match");
+            return;
+        }
+
+        register(email, password)
+            .then(() => nav("/"))
+            .catch((error) => alert(error));
+    }
+
     return (
         <div
             style={{
@@ -16,53 +32,58 @@ const Register = () => {
             }}
         >
             <h1>Register</h1>
-            <input
-                type="text"
-                style={{
-                    width: '50vw',
-                    paddingInline: '5px',
-                    borderRadius: 10
-                }}
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-                placeholder="Email"
-            />
-            <input
-                type="password"
-                style={{
-                    width: '50vw',
-                    paddingInline: '5px',
-                    marginTop: 25,
-                    borderRadius: 10
-                }}
-                value={password}
-                onChange={e => setPassword(e.target.value)}
-                placeholder="Password"
-            />
-            <input
-                type="password"
-                style={{
-                    width: '50vw',
-                    paddingInline: '5px',
-                    marginTop: 25,
-                    borderRadius: 10
-                }}
-                value={repeatPwd}
-                onChange={e => setRepeatPwd(e.target.value)}
-                placeholder="Confirm password"
-            />
-            <button
-                onClick={() => {}}
-                style={{
-                    marginTop: 20,
-                    width: 300,
-                    borderRadius: 10,
-                    height: 25,
-                    backgroundColor: '#ADD8E6'
-                }}
-            >
-                Register
-            </button>
+            <form onSubmit={handleRegister} style={{textAlign: "center"}}>
+                <input
+                    type="text"
+                    style={{
+                        width: '50vw',
+                        paddingInline: '5px',
+                        borderRadius: 10
+                    }}
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                    placeholder="Email"
+                />
+                <br />
+                <input
+                    type="password"
+                    style={{
+                        width: '50vw',
+                        paddingInline: '5px',
+                        marginTop: 25,
+                        borderRadius: 10
+                    }}
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                    placeholder="Password"
+                />
+                <br />
+                <input
+                    type="password"
+                    style={{
+                        width: '50vw',
+                        paddingInline: '5px',
+                        marginTop: 25,
+                        borderRadius: 10
+                    }}
+                    value={repeatPwd}
+                    onChange={e => setRepeatPwd(e.target.value)}
+                    placeholder="Confirm password"
+                />
+                <br />
+                <button
+                    style={{
+                        marginTop: 20,
+                        width: 300,
+                        borderRadius: 10,
+                        height: 25,
+                        lineHeight: 0,
+                        backgroundColor: '#ADD8E6'
+                    }}
+                >
+                    Register
+                </button>
+            </form>
         </div>
     );
 }

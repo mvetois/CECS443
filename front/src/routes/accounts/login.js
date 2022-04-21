@@ -1,21 +1,32 @@
 import React from 'react';
-import {Button, Card, Form, Nav} from "react-bootstrap";
 import { useState } from 'react';
-
+import { useNavigate } from 'react-router-dom';
+import { login } from "../../Backend";
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    let nav = useNavigate();
+    const handleLogin = (event) => {
+        event.preventDefault();
+        
+        login(email, password)
+            .then(() => nav("/"))
+            .catch((error) => alert(error));
+    }
+
     return (
-      <div
-          style={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
+        <div
+            style={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
           }}
-      >
-          <h1>Log in</h1>
+        >
+        <h1>Log in</h1>
+        <form onSubmit={handleLogin} style={{textAlign: 'center'}}>
             <input
                 type="text"
                 style={{
@@ -25,32 +36,36 @@ const Login = () => {
                 }}
                 value={email}
                 onChange={e => setEmail(e.target.value)}
-                placeholder="email"
+                placeholder="Email"
             />
-          <input
-              type="password"
-              style={{
-                  width: '50vw',
-                  paddingInline: '5px',
-                  marginTop: 25,
-                  borderRadius: 10
-              }}
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-              placeholder="password"
-          />
-          <button
-              onClick={() => {}}
-              style={{
-                  marginTop: 20,
-                  width: 300,
-                  borderRadius: 10,
-                  height: 25,
-                  backgroundColor: '#ADD8E6'
-              }}
-          >
-              Log in
-          </button>
+            <br />
+            <input
+                type="password"
+                style={{
+                    width: '50vw',
+                    paddingInline: '5px',
+                    marginTop: 25,
+                    borderRadius: 10
+                }}
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+                placeholder="Password"
+            />
+            <br />
+            <button
+                type="submit"
+                style={{
+                    marginTop: 20,
+                    width: 300,
+                    borderRadius: 10,
+                    height: 25,
+                    lineHeight: 0,
+                    backgroundColor: '#ADD8E6'
+                }}
+            >
+                Log in
+            </button>
+        </form>
       </div>
     );
 }
