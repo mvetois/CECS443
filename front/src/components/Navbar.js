@@ -27,7 +27,7 @@ const Navbar = () => {
             }}>
             <img src={VectorIcon1} width="150" />
             <img src={VectorIcon} width="150" />
-            <img src={VectorIcon} width="150" />
+
             <div style={{ display: 'flex', alignItems: 'center'}}>
                 <NavBarDropDown options={options} />
                 <ThemeToggle colorOne="black" colorTwo="white" />
