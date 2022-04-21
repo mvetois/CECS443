@@ -2,170 +2,52 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import AddDocument from "../components/AddDocument";
 import Sidebar from "../components/Sidebar";
+import { register as test1, login as test2, logout as test3, getData as test4, addData as test5, remData as test6,
+        getCategories as test7, addSubcat as test8, remSubcat as test9} from "../Backend";
 
 let token = null;
 
 //Testing deleting data
 const remData = async () => {
-    fetch("http://127.0.0.1:5000/api/admin/data/rem", {
-        method: 'DELETE',
-        headers: {
-            "Content-Type": "application/json",
-            "authorization": "Bearer " + token
-        },
-        body: JSON.stringify({
-            "category": "testCI",
-            "subcategory": "subcat1",
-            "name": "data1"
-        })
-    })
-    .then(data=>console.log(data))
-    .catch((error) => {
-        console.error("Error:", error);
-    });
+    test6("testCI", "subcat1", "data1");
 }
 
 //Testing uploading data
 const addData = async () => {
-    fetch("http://127.0.0.1:5000/api/admin/data/add", {
-        method: 'POST',
-        headers: {
-            "Content-Type": "application/json",
-            "authorization": "Bearer " + token
-        },
-        body: JSON.stringify({
-            "category": "testCI",
-            "subcategory": "subcat1",
-            "data": {
-              "name": "data1",
-              "description": "data1 desc",
-              "lang": "EN",
-              "data": "test data"
-            }
-          })
-    })
-    .then(data=>console.log(data))
-    .catch((error) => {
-        console.error("Error:", error);
-    });
+    test5("testCI", "subcat1", "data1", "data1 desc", "EN", "test data");
 }
 
 //Testing remove a subcategory
 const remSubcat = async () => {
-    fetch("http://127.0.0.1:5000/api/admin/subcategory/rem", {
-        method: 'DELETE',
-        headers: {
-            "Content-Type": "application/json",
-            "authorization": "Bearer " + token
-        },
-        body: JSON.stringify({
-            "category": "testCI",
-            "subcategory": "subcat1"
-        })
-    })
-    .then(data=>console.log(data))
-    .catch((error) => {
-        console.error("Error:", error);
-    });
+    test9("testCI", "subcat1");
 }
 
 //Testing creating subcategory
 const addSubcat = async () => {
-    fetch("http://127.0.0.1:5000/api/admin/subcategory/add", {
-        method: 'POST',
-        headers: {
-            "Content-Type": "application/json",
-            "authorization": "Bearer " + token
-        },
-        body: JSON.stringify({
-            "category": "testCI",
-            "subcategory": "subcat1"
-        })
-    })
-    .then(data=>console.log(data))
-    .catch((error) => {
-        console.error("Error:", error);
-    });
+    test8("testCI", "subcat1");
 }
 
 const getCategories = async () => {
-    fetch("http://127.0.0.1:5000/api/user/getcategories", {
-        headers: {
-            "authorization": "Bearer " + token
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log("Success:", data);
-    })
-    .catch((error) => {
-        console.error("Error:", error);
-    });
+    console.log(await test7());
 }
 
 //Testing making requests for data
 const getData = async () => {
-    fetch("http://127.0.0.1:5000/api/user/getdata?category=testCI&subcategory=subcat1", {
-        headers: {
-            "authorization": "Bearer " + token
-        }
-    })
-        .then(response => response.json())
-        .then(data => {
-        console.log("Success:", data);
-        })
-        .catch((error) => {
-        console.error("Error:", error);
-    });
+    console.log(await test4("testCI", "subcat1"));
 }
 
 //Testing logging out
 const logout = async () => {
-    //TODO Create a file that handles the API requests and handles storage of access token
+    test3();
 }
 
 //Testing logging in
 const login = async () => {
-    fetch("http://127.0.0.1:5000/api/user/login", {
-        method: 'POST',
-        headers: {
-            "Content-Type": "application/json",
-            "authorization": "Bearer " + token
-        },
-        body: JSON.stringify({
-            email: "testEmail",
-            password: "testPassword2"
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log("Success:", data);
-        token = data.token;
-    })
-    .catch((error) => {
-        console.error("Error:", error);
-    });
+    test2("testEmail", "testPassword2");
 }
 
 const register = async () => {
-    fetch("http://127.0.0.1:5000/api/user/register", {
-        method: 'POST',
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            email: "testEmail3",
-            password: "testPassword3"
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log("Success:", data);
-        token = data.token;
-    })
-    .catch((error) => {
-        console.error("Error:", error);
-    });
+    test1("testEmail5", "testPassword3");
 }
 
 //Pinging the api
@@ -181,6 +63,7 @@ const Testing = () => {
             <Button variant="secondary" onClick={ping}>Ping</Button>
             <Button variant="primary" onClick={register}>Register</Button>
             <Button variant="success" onClick={login}>Login</Button>
+            <Button variant="danger" onClick={logout}>Logout</Button>
             <br />
             <Button variant="dark" onClick={getCategories}>Get categories</Button>
             <Button variant="success" onClick={addSubcat}>Add subcategory</Button>
