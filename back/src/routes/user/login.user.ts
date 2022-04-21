@@ -65,7 +65,7 @@ router.post("/", async (req : Request, res : Response) => {
 
     const user = await User.findOne({email: req.body.email, password: req.body.password});
     if (!user)
-        return (res.status(400).send({error: "User not found"}));
+        return (res.status(400).send({error: "Invalid email or password"}));
 
     const accessToken : Promise<any> = await signAccessToken(user.email, user.admin);
     return (res.status(200).send({token: accessToken}));
