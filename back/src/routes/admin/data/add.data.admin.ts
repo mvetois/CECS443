@@ -108,6 +108,9 @@ router.post("/", verifyAccessTokenAdmin, async (req : Request, res : Response) =
     const subcategory : ISubcategory = category.subcategories.find((e) => e.name == req.body.subcategory);
     if (!subcategory)
         return (res.status(400).send({error: "Subcategory not found."}));
+        const SameName : IData = subcategory.data.find((e) => e.name == req.body.data.name);
+    if (SameName)
+        return (res.status(400).send({error: "Data allready exist."}));
 
     const data : IData = {
         name: req.body.data.name,
