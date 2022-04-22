@@ -24,6 +24,7 @@ class App extends Component {
                                 {/* Add other private paths here */}
                             </Routes>
                         }/>} />
+                        {/* Paths here do not require login */}
                         <Route path="/testing" element={<Testing />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />

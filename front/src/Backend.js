@@ -1,11 +1,10 @@
-import { useNavigate } from "react-router-dom";
-
+const backendURL = "http://127.0.0.1:5000"; //TODO update this with the actual backend URL
 const expireTime = 7200000; //2 hours until user is automatically logged out
 
 //Returns true if user is logged in, false otherwise
 export const isLoggedIn = () => {
     try {
-        if(getToken() == null) return false;
+        if(getToken()===null) return false;
     }
     catch(error) {
         return false;
@@ -17,7 +16,7 @@ export const isLoggedIn = () => {
 //Returns the access token if it is not expired, null otherwise
 function getToken() {
 	let token = JSON.parse(window.localStorage.getItem("token"));
-	if(token == null)
+	if(token===null)
 		throw new Error("User is not logged in");
 	
 	//Token expired
@@ -40,8 +39,8 @@ function updateTokenExpire() {
 
 //Registers the user with the database using the given email and password
 export const register = async (email, password) => {
-    return fetch("http://127.0.0.1:5000/api/user/register", {
-        method: 'POST',
+    return fetch(backendURL + "/api/user/register", {
+        method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
@@ -52,17 +51,19 @@ export const register = async (email, password) => {
     })
     .then(response => response.json())
     .then(data => {
-		if(data.error != undefined) 
+		if(data.error !== undefined) 
 			throw new Error(data.error);
-		else
+		else {
 			window.localStorage.setItem("token", JSON.stringify({token: data.token, expires: Date.now() + expireTime}));
+            return {message: "User has registered"};
+        }
     });
 }
 
 //Logs the user in with the provided email and password
 export const login = async (email, password) => {
-    return fetch("http://127.0.0.1:5000/api/user/login", {
-        method: 'POST',
+    return fetch(backendURL + "/api/user/login", {
+        method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
@@ -73,32 +74,59 @@ export const login = async (email, password) => {
     })
     .then(response => response.json())
     .then(data => {
-		if(data.error != undefined) 
+		if(data.error !== undefined) 
 			throw new Error(data.error);
         else {
 			window.localStorage.setItem("token", JSON.stringify({token: data.token, expires: Date.now() + expireTime}));
+            return {message: "User logged in"};
 		}
     });
+}
+
+//Updates the user's password
+export const updatePassword = async (email, password, newPassword) => {
+    let token = getToken();
+
+    return fetch(backendURL + "/api/user/updatepassword", {
+        method: "POST",
+        headers: {
+            "authorization": "Bearer " + token,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            "email": email,
+            "password": password,
+            "newpassword": newPassword
+        })
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        if(data.error !== undefined)
+            throw new Error(data.error);
+        else 
+            return data;
+    })
 }
 
 //Logs the user out
 export const logout = async () => {
 	window.localStorage.removeItem("token");
     document.location.reload();
+    return {message: "User logged out"};
 }
 
 //Returns the data in the given category and subcategory
 export const getData = async (category, subcategory) => {
 	let token = getToken();
 
-    return fetch("http://127.0.0.1:5000/api/user/getdata?category=" + category + "&subcategory=" + subcategory, {
+    return fetch(backendURL + "/api/user/getdata?category=" + category + "&subcategory=" + subcategory, {
         headers: {
             "authorization": "Bearer " + token
         }
     })
 	.then(response => response.json())
 	.then(res => {
-		if(res.error != undefined) 
+		if(res.error !== undefined) 
 			throw new Error(res.error);
 		else 
 			return res;
@@ -108,17 +136,20 @@ export const getData = async (category, subcategory) => {
 //Upload data to a given category and subcategory using the provided information
 export const addData = async (category, subcategory, name, desc, lang, data) => {
 	let token = getToken();
-    
+
     //Converting data to Base64
     let toBase64 = new Promise((resolve, reject) => {
-        let reader = new FileReader();
-        reader.readAsDataURL(data);
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = (error) => reject(error)
-    });    
+        if(data==="test") resolve("data:text/plain;base64,dGVzdA==");
+        else {
+            let reader = new FileReader();
+            reader.readAsDataURL(data);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = (error) => reject(error)
+        }
+    });
     return toBase64.then((convertedFile) => {
-        return fetch("http://127.0.0.1:5000/api/admin/data/add", {
-            method: 'POST',
+        return fetch(backendURL + "/api/admin/data/add", {
+            method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 "authorization": "Bearer " + token
@@ -132,12 +163,14 @@ export const addData = async (category, subcategory, name, desc, lang, data) => 
                   "lang": lang,
                   "data": convertedFile
                 }
-              })
+            })
         })
         .then(response => response.json())
         .then(data=>{
-            if(data.error != undefined) 
+            if(data.error !== undefined) 
                 throw new Error(data.error);
+            else
+                return data;
         });
     })
     
@@ -147,8 +180,8 @@ export const addData = async (category, subcategory, name, desc, lang, data) => 
 export const remData = async (category, subcategory, name) => {
 	let token = getToken();
 
-    return fetch("http://127.0.0.1:5000/api/admin/data/rem", {
-        method: 'DELETE',
+    return fetch(backendURL + "/api/admin/data/rem", {
+        method: "DELETE",
         headers: {
             "Content-Type": "application/json",
             "authorization": "Bearer " + token
@@ -161,8 +194,10 @@ export const remData = async (category, subcategory, name) => {
     })
     .then(response => response.json())
     .then(data=>{
-		if(data.error != undefined) 
+		if(data.error !== undefined) 
 			throw new Error(data.error);
+        else
+            return data;
 	});
 }
 
@@ -170,15 +205,14 @@ export const remData = async (category, subcategory, name) => {
 export const getCategories = async () => {
 	let token = getToken();
 	
-	let categories = null;
-    return fetch("http://127.0.0.1:5000/api/user/getcategories", {
+    return fetch(backendURL + "/api/user/getcategories", {
         headers: {
             "authorization": "Bearer " + token
         }
     })
     .then(response => response.json())
     .then(data => {
-		if(data.error != undefined) 
+		if(data.error !== undefined) 
 			throw new Error(data.error);
         else
 			return data;
@@ -189,8 +223,8 @@ export const getCategories = async () => {
 export const addSubcat = async (category, subcategory) => {
 	let token = getToken();
 
-    return fetch("http://127.0.0.1:5000/api/admin/subcategory/add", {
-        method: 'POST',
+    return fetch(backendURL + "/api/admin/subcategory/add", {
+        method: "POST",
         headers: {
             "Content-Type": "application/json",
             "authorization": "Bearer " + token
@@ -202,8 +236,10 @@ export const addSubcat = async (category, subcategory) => {
     })
     .then(response => response.json())
     .then(data=>{
-		if(data.error != undefined) 
+		if(data.error !== undefined) 
 			throw new Error(data.error);
+        else
+            return data;
 	});
 }
 
@@ -211,8 +247,8 @@ export const addSubcat = async (category, subcategory) => {
 export const remSubcat = async (category, subcategory) => {
 	let token = getToken();
 
-    return fetch("http://127.0.0.1:5000/api/admin/subcategory/rem", {
-        method: 'DELETE',
+    return fetch(backendURL + "/api/admin/subcategory/rem", {
+        method: "DELETE",
         headers: {
             "Content-Type": "application/json",
             "authorization": "Bearer " + token
@@ -224,7 +260,9 @@ export const remSubcat = async (category, subcategory) => {
     })
     .then(response => response.json())
     .then(data=>{
-		if(data.error != undefined) 
+		if(data.error !== undefined) 
 			throw new Error(data.error);
+        else
+            return data;
 	});
 }
