@@ -65,6 +65,38 @@ const Login = () => {
             >
                 Log in
             </button>
+            <br />
+            <button
+                className="appColor"
+                style={{
+                    marginTop: 20,
+                    width: 300,
+                    borderRadius: 10,
+                    height: 25,
+                    lineHeight: 0
+                }}
+                onClick={() => {
+                    nav("/register");
+                }}
+            >
+                Register
+            </button>
+            <br />
+            <button
+                className="appColor"
+                style={{
+                    marginTop: 20,
+                    width: 300,
+                    borderRadius: 10,
+                    height: 25,
+                    lineHeight: 0
+                }}
+                onClick={() => {
+                    nav("/forgetpassword");
+                }}
+            >
+                Forget Password
+            </button>
         </form>
       </div>
     );

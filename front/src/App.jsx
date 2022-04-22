@@ -10,6 +10,7 @@ import Testing from "./routes/Testing";
 import Login from "./routes/accounts/login";
 import Register from "./routes/accounts/register";
 import Navbar from "./components/Navbar";
+import UpdatePassword from "./routes/UpdatePassword";
 
 class App extends Component {
     render() {
@@ -28,6 +29,7 @@ class App extends Component {
                         <Route path="/testing" element={<Testing />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
+                        <Route path="/forgetpassword" element={<UpdatePassword />} />
                     </Routes>
                 </BrowserRouter>
             </div>
