@@ -68,9 +68,14 @@ const download = async () => {
     downloadLink.click();
 }
 
+const urlParameters = () => {
+    const urlParams = new URLSearchParams(document.location.search);
+    for(let entry of urlParams.entries()) 
+        console.log(entry);
+}
+
 const Testing = () => {
-    return <div style={{height: '100%', display: 'flex'}}>
-        <Sidebar />
+    return <div style={{height: '100%', display: 'flex', padding: "10px"}}>
         <div>
             <AddDocument />
             {isLoggedIn() ? "logged in" : "logged out"}
@@ -91,6 +96,8 @@ const Testing = () => {
             <Button onClick={download}>Download</Button>
             <br />
             <Button style={{backgroundColor: "purple", borderColor: "purple"}} onClick={updatePassword}>Update password</Button>
+            <br />
+            <Button variant="success" onClick={urlParameters}>URL</Button>
         </div>
     </div>
 }
