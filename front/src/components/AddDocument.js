@@ -26,8 +26,8 @@ export default class AddDocument extends Component {
         let val = event.target.value;
 
         //Doing this to handle radio button input
-        if(event.target.id == "lang") val = event.target.ariaLabel;
-        else if(event.target.id == "file") val = event.target.files[0];
+        if(event.target.id==="lang") val = event.target.ariaLabel;
+        else if(event.target.id==="file") val = event.target.files[0];
 
         this.setState((prevState) => {
             return {
@@ -45,6 +45,8 @@ export default class AddDocument extends Component {
         this.handleClose();
         //TODO Pass down the category and subcategory through props to provide in the addData parameters
         addData("testCI", "subcat1", this.state.formInput.title, this.state.formInput.desc, this.state.formInput.lang, this.state.formInput.file)
+        
+        //Clear form
         this.setState({formInput: {}});
     }
 

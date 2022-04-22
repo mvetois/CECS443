@@ -1,13 +1,11 @@
 import React from "react";
-import { Button } from "react-bootstrap";
-import AddDocument from "../components/AddDocument";
 
 
 const Home = () => {
 
     return (
     <React.Fragment>
-        
+        Temp Home
     </React.Fragment>
     )
 }
