@@ -14,7 +14,7 @@ import Navbar from "./components/Navbar";
 class App extends Component {
     render() {
         return (
-            <React.Fragment>
+            <div style={{height: "100%", display: "flex", flexDirection: "column"}}>
                 <BrowserRouter>
                     <Navbar />
                     <Routes>
@@ -30,7 +30,7 @@ class App extends Component {
                         <Route path="/register" element={<Register />} />
                     </Routes>
                 </BrowserRouter>
-            </React.Fragment>
+            </div>
         )
     }
 }

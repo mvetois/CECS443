@@ -74,6 +74,11 @@ const urlParameters = () => {
         console.log(entry);
 }
 
+const spaceTest = async () => {
+    for(let i = 0; i < 10; ++i)
+        await test8("spaceTest", "spac" + i.toString());
+}
+
 const Testing = () => {
     return <div style={{height: '100%', display: 'flex', padding: "10px"}}>
         <div>
@@ -98,6 +103,8 @@ const Testing = () => {
             <Button style={{backgroundColor: "purple", borderColor: "purple"}} onClick={updatePassword}>Update password</Button>
             <br />
             <Button variant="success" onClick={urlParameters}>URL</Button>
+            <br />
+            <Button variant="secondary" onClick={spaceTest}>Space test</Button>
         </div>
     </div>
 }

@@ -23,7 +23,7 @@ const Navbar = () => {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: 'space-between',
-                height: 80
+                minHeight: 80
             }}>
             <img src={VectorIcon1} width="150" />
             <img src={VectorIcon} width="150" />
