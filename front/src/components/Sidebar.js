@@ -59,27 +59,13 @@ export default class Sidebar extends Component {
         let selected = this.props.getSelected();
 
         return (
-            <div 
-                style={{
-                    background: '#c4c4c4', 
-                    height: '100%', 
-                    width: "20%", 
-                    minWidth: "180px",
-                    padding: '10px', 
-                    overflowY: "auto"
-                }}>
+            <div className="sidebar">
                 {categories ? categories.map((cat, index) => { //For each category, make a dropdown for its subcategories
                     return (
                         <div key={index}>
-                            <Button onClick={() => this.handleCategorySelect(index)} 
+                            <Button className="sidebar-item" onClick={() => this.handleCategorySelect(index)} 
                                 style={{
-                                    width: "100%",
-                                    textAlign: "left",
-                                    color: "black",
-                                    backgroundColor: (index === selected.category ? "#a6a6a6" : "transparent"), 
-                                    borderColor: "transparent",
-                                    boxShadow: "none",
-                                    padding: "0px"
+                                    backgroundColor: (index === selected.category ? "#a6a6a6" : "transparent")
                                 }}>
                                 <div style={{display: "inline-flex", width: "100%"}}>
                                     <h4 style={{marginBottom: "0px", marginTop: "5px", width: "100%"}} >{cat.name}</h4>
@@ -87,16 +73,10 @@ export default class Sidebar extends Component {
                                 </div>
                             </Button>
                             {this.state && this.state.showSubs[index] ? cat.subcategories.map((subcat, subcatIndex) => { //For each subcategory
-                                return <Button key={subcatIndex} onClick={() => this.handleSubcategorySelect(index, subcatIndex)} 
+                                return <Button className="sidebar-item" key={subcatIndex} onClick={() => this.handleSubcategorySelect(index, subcatIndex)} 
                                     style={{
-                                        width: "100%",
-                                        textAlign: "left",
-                                        color: "black",
-                                        backgroundColor: (index === selected.category && subcatIndex === selected.subcategory ? "#a6a6a6" : "transparent"), 
-                                        borderColor: "transparent",
-                                        boxShadow: "none",
-                                        padding: "0px",
-                                        paddingLeft: "10px"
+                                        backgroundColor: (index === selected.category && subcatIndex === selected.subcategory ? "#a6a6a6" : "transparent"),
+                                        padding: "10px"
                                     }}>
                                     {subcat.name}
                                 </Button>

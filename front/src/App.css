@@ -60,10 +60,52 @@ input.descBox {
   border-radius: 20px;
 }
 
+.view-window {
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  overflow-y: scroll;
+  text-align: center;
+}
+
+/*
+Item view styling
+*/
+.dynamic-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 240px);
+  grid-template-rows: repeat(auto-fill, 240px);
+  overflow-y: auto;
+  align-items: center;
+  justify-items: center;
+}
+
+.grid-item {
+  width: 200px;
+  height: 200px;
+  margin: 20px;
+}
+
 /*
 Sidebar styling
 */
 
-h4.Category {
-  margin: auto
+.sidebar {
+  background: #c4c4c4;
+  height: 100%;
+  width: 20%;
+  min-width: 180px;
+  padding: 10px;
+  overflow-y: auto;
+}
+
+.sidebar-item {
+  width: 100%;
+  text-align: left;
+  color: black !important;
+  background-color: transparent;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  padding: 0px;
+  line-height: 0px;
 }

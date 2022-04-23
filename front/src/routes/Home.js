@@ -1,5 +1,6 @@
 import React from "react";
 import { getCategories } from "../Backend";
+import CategoryView from "../components/CategoryView";
 import Sidebar from "../components/Sidebar";
 
 
@@ -59,13 +60,8 @@ export default class Home extends React.Component {
         return (
             <div style={{height: '100%', display: 'flex', overflow: "hidden"}}>
                 <Sidebar getCategories={this.getCats} getSelected={this.getSelected} setSelected={this.setSelected}/>
-                <div style={{
-                        width: "100%",
-                        height: "100%",
-                        padding: "10px",
-                        textAlign: "center"
-                    }}>
-                    <h2>{category ? category.name : ""}</h2>
+                <div className="view-window">
+                    <CategoryView getCategories={this.getCats} />
                 </div>
             </div>
         )
