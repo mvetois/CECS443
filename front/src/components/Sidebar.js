@@ -60,7 +60,7 @@ export default class Sidebar extends Component {
 
         return (
             <div className="sidebar">
-                {categories ? categories.map((cat, index) => { //For each category, make a dropdown for its subcategories
+                {categories && selected ? categories.map((cat, index) => { //For each category, make a dropdown for its subcategories
                     return (
                         <div key={index}>
                             <Button className="sidebar-item" onClick={() => this.handleCategorySelect(index)} 

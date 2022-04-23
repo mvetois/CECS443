@@ -76,7 +76,7 @@ const urlParameters = () => {
 
 const spaceTest = async () => {
     for(let i = 0; i < 10; ++i)
-        await test8("spaceTest", "spac" + i.toString());
+        await test8("cat1", "subcat" + i.toString()).catch((error)=>console.error(error));
 }
 
 const Testing = () => {

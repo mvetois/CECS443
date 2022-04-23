@@ -77,7 +77,7 @@ Item view styling
   grid-template-rows: repeat(auto-fill, 240px);
   overflow-y: auto;
   align-items: center;
-  justify-items: center;
+  justify-content: center;
 }
 
 .grid-item {
