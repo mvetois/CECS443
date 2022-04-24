@@ -10,6 +10,52 @@ import { Data } from "../src/models/Data.model";
 
 /* ----- Code ----- */
 
+describe("POST - Admin create a category", () => {
+    const auth = {token: ""};
+    before(loginUser(auth, {email: "admin@test.com", password: "ThisIsAPassword"}))
+    it("Create a category", async () => {
+        const response = await supertest(app).post("/api/admin/category/add").send({
+            category: "test"
+        }).set("Authorization", "bearer " + auth.token);
+        expect(response.status).to.equal(200);
+    });
+    it("Category allready exist", async () => {
+        const response = await supertest(app).post("/api/admin/category/add").send({
+            category: "test"
+        }).set("Authorization", "bearer " + auth.token);
+        expect(response.status).to.equal(400);
+    });
+    it("Unauthorized", async () => {
+        const response = await supertest(app).post("/api/admin/category/add").send({
+            category: "test"
+        });
+        expect(response.status).to.equal(401);
+    });
+});
+
+describe("DELETE - Admin delete a subcategory", () => {
+    const auth = {token: ""};
+    before(loginUser(auth, {email: "admin@test.com", password: "ThisIsAPassword"}))
+    it("Delete a Category", async () => {
+        const response = await supertest(app).delete("/api/admin/category/rem").send({
+            category: "test"
+        }).set("Authorization", "bearer " + auth.token);
+        expect(response.status).to.equal(200);
+    });
+    it("Categoty don't exist", async () => {
+        const response = await supertest(app).delete("/api/admin/category/rem").send({
+            category: "test"
+        }).set("Authorization", "bearer " + auth.token);
+        expect(response.status).to.equal(400);
+    });
+    it("Unauthorized", async () => {
+        const response = await supertest(app).delete("/api/admin/category/rem").send({
+            category: "test"
+        });
+        expect(response.status).to.equal(401);
+    });
+});
+
 describe("POST - Admin create a subcategory", () => {
     const auth = {token: ""};
     before(async () => {

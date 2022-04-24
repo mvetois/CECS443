@@ -2,8 +2,8 @@
 
 import { Router, Request, Response } from "express";
 
-import User from "./user/index"
-import Admin from "./admin/index"
+import User from "./user"
+import Admin from "./admin"
 
 /* ----- Code ----- */
 
