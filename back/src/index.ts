@@ -5,7 +5,7 @@ import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
 
 import SwaggerOptions from "./swagger";
-import routes from "./routes/index";
+import routes from "./routes";
 
 require("./initDB");
 
