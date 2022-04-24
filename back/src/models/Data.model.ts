@@ -32,7 +32,6 @@ const dataSchema = new Schema({
     subcategories: {
         type: Array,
         required: true,
-        unique: true,
         lowercase: true
     },
 });
