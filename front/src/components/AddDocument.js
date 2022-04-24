@@ -94,7 +94,7 @@ export default class AddDocument extends Component {
                             </Form.Group>
 
                             <div style={{width: "100%", textAlign: "center"}}>
-                                <Button className="appColor" variant="primary" type="submit" style={{width: "80%", borderRadius: "25px"}}>
+                                <Button className="appColor" type="submit" style={{width: "80%", borderRadius: "25px"}}>
                                     Submit
                                 </Button>
                             </div>

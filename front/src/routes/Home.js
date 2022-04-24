@@ -1,5 +1,5 @@
 import React from "react";
-import { addSubcat, getCategories } from "../Backend";
+import { addCategory, addSubcat, getCategories } from "../Backend";
 import CategoryView from "../components/CategoryView";
 import Sidebar from "../components/Sidebar";
 import SubcategoryView from "../components/SubcategoryView";
@@ -27,7 +27,7 @@ export default class Home extends React.Component {
     //Updates the view to include new data and switch to different views if there's been a new selection
     updateView = () => {
         //Default view shows all categories
-        let view = <CategoryView getCategories={this.getCats} setSelected={this.setSelected} />
+        let view = <CategoryView getCategories={this.getCats} setSelected={this.setSelected} addCategory={this.addCategory} />
 
         if(this.state.selected.category >= 0) {
             if(this.state.selected.subcategory >= 0) { //If we have a subcategory selected, show all documents in that subcategory
@@ -82,6 +82,26 @@ export default class Home extends React.Component {
                 }
             }
         }, ()=>this.updateView()); //Update the view after category and subcategory are updated
+    }
+
+    //Adds a category and updates the view
+    addCategory = (categoryName) => {
+        addCategory(categoryName) //Adding category to the database
+            //Getting the new categories list
+            .then(async () => {
+                let categories = await getCategories().catch((error) => {
+                    alert(error); //Error getting categories
+                });
+                this.setState({
+                    categories: categories
+                });
+            })
+            .then(()=>this.updateView()) //Update the view after the new category has been added
+            .catch((error) => {
+                console.error(error);
+                alert(error); //Error creating new category
+            })
+
     }
 
     //Adds a subcategory to the given category and updates the view
