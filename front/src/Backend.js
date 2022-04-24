@@ -219,6 +219,52 @@ export const getCategories = async () => {
     })
 }
 
+//Create a category
+export const addCategory = async (categoryName) => {
+    let token = getToken();
+
+    return fetch(backendURL + "/api/admin/category/add", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "authorization": "Bearer " + token
+        },
+        body: JSON.stringify({
+            "category": categoryName
+        })
+    })
+    .then(response => response.json())
+    .then(data=>{
+		if(data.error !== undefined) 
+			throw new Error(data.error);
+        else
+            return data;
+	});
+}
+
+//Remove a category
+export const remCategory = async (categoryName) => {
+	let token = getToken();
+
+    return fetch(backendURL + "/api/admin/category/rem", {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+            "authorization": "Bearer " + token
+        },
+        body: JSON.stringify({
+            "category": categoryName
+        })
+    })
+    .then(response => response.json())
+    .then(data=>{
+		if(data.error !== undefined) 
+			throw new Error(data.error);
+        else
+            return data;
+	});
+}
+
 //Create a subcategory in a given category
 export const addSubcat = async (category, subcategory) => {
 	let token = getToken();
