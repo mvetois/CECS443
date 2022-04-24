@@ -2,13 +2,15 @@
 
 import { Router } from "express";
 
-import SubCategory from "./subcategory/index";
-import Data from "./data/index";
+import Category from "./category";
+import SubCategory from "./subcategory";
+import Data from "./data";
 
 /* ----- Code ----- */
 
 const router : Router = Router();
 
+router.use("/category", Category);
 router.use("/subcategory", SubCategory);
 router.use("/data", Data);
 
