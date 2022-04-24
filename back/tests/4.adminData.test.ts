@@ -12,6 +12,9 @@ import { Data } from "../src/models/Data.model";
 
 describe("POST - Admin create a category", () => {
     const auth = {token: ""};
+    before(async () => {
+        await Data.deleteMany({});
+    });
     before(loginUser(auth, {email: "admin@test.com", password: "ThisIsAPassword"}))
     it("Create a category", async () => {
         const response = await supertest(app).post("/api/admin/category/add").send({

@@ -73,7 +73,7 @@ router.post("/", verifyAccessTokenAdmin, async (req : Request, res : Response) =
     const category : ICategory = await Data.findOne({name: req.body.category});
     if (category)
         return (res.status(400).send({error: "Category already exists"}));
-    const newCategory = new Data({name: req.body.category});
+    const newCategory = new Data({name: req.body.category, subcategories: []});
     await newCategory.save();
 
     return (res.status(200).send({message: "Category added."}));
