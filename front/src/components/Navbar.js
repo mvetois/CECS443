@@ -32,11 +32,20 @@ const Navbar = () => {
             style={{
                 display: "flex",
                 alignItems: "center",
-                justifyContent: 'space-between',
-                minHeight: 80
+                justifyContent: 'space-between'
             }}>
-            <img src={VectorIcon1} width="150" />
-            <img src={VectorIcon} width="150" onClick={goHome} style={{cursor: "pointer"}}/>
+            <div onClick={goHome} 
+                style={{
+                    display: "flex", 
+                    flexDirection: "column", 
+                    cursor: "pointer",
+                    marginTop: "21px",
+                    marginLeft: "18px",
+                    marginBottom: "11px"
+                }}>
+                <img src={VectorIcon} width="150" style={{marginBottom: "9.17px"}}/>
+                <img src={VectorIcon1} width="150" />
+            </div>
 
             <div style={{ display: 'flex', alignItems: 'center'}}>
                 <NavBarDropDown options={options} />
