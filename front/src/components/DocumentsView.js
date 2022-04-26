@@ -19,7 +19,7 @@ export default class DocumentsView extends React.Component {
 
 		this.setState({
 			subcategory: subcat
-		}, ()=>console.log(this.state.subcategory));
+		});
 	}
 
 	getCategoriesGrid = () => {
@@ -30,7 +30,7 @@ export default class DocumentsView extends React.Component {
 		if(this.state.subcategory.data === undefined) return <h5>There are currently no documents</h5>
 
 		//Returning grid of subcategories
-		return <React.Fragment> <h2>{this.props.category.name}</h2>
+		return <React.Fragment> <h2>{this.props.subcategory.name}</h2>
                 <div className="dynamic-grid">
 					{this.state.subcategory.data.map((doc, index) => {
 						return (
@@ -50,6 +50,8 @@ export default class DocumentsView extends React.Component {
 	}
 
 	render() {
+		if(!this.state) return <></>
+		if(!this.state.subcategory) return <h2>Error getting category, please return</h2>
 
 		return (
 			<div style={{position: "relative"}}>
@@ -58,6 +60,6 @@ export default class DocumentsView extends React.Component {
 				<AddDocument categoryName={this.props.category.name} subcatName={this.props.subcategory.name} style={{right: "0px", position: "absolute"}}/>
 				{this.getCategoriesGrid()}
 			</div>
-		)
+		);
 	}
 }
