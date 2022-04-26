@@ -4,7 +4,7 @@ import mongoose, { Schema } from "mongoose";
 
 /* ----- Code ----- */
 
-type base64 = string;
+type fileId = string;
 
 export interface ICategory {
     name: string;
@@ -20,7 +20,7 @@ export interface IData {
     name: string;
     description: string;
     lang: "FR" | "EN";
-    data: base64;
+    data: fileId;
 };
 
 const dataSchema = new Schema({

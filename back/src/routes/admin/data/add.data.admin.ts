@@ -2,9 +2,12 @@
 
 import { Router, Request, Response } from "express";
 
+import mongoose from "mongoose";
+
 import { verifyAccessTokenAdmin } from "../../../helpers/jtw";
 
 import { Data, ICategory, ISubcategory, IData } from "../../../models/Data.model";
+import { DataFile } from "../../../models/DataFile.model";
 
 /* ----- Code ----- */
 
@@ -108,16 +111,26 @@ router.post("/", verifyAccessTokenAdmin, async (req : Request, res : Response) =
     const subcategory : ISubcategory = category.subcategories.find((e) => e.name == req.body.subcategory);
     if (!subcategory)
         return (res.status(400).send({error: "Subcategory not found."}));
-        const SameName : IData = subcategory.data.find((e) => e.name == req.body.data.name);
+    const SameName : IData = subcategory.data.find((e) => e.name == req.body.data.name);
     if (SameName)
-        return (res.status(400).send({error: "Data allready exist."}));
+        return (res.status(400).send({error: "Data already exist."}));
 
-    const data : IData = {
+    const dataFileId = new mongoose.Types.ObjectId();
+    const file = new DataFile ({
+        _id: dataFileId,
+        data: req.body.data.data
+    });
+    await file.save();
+
+    const data = new Data ({
         name: req.body.data.name,
         description: req.body.data.description,
         lang: req.body.data.lang,
-        data: req.body.data.data
-    };
+        data: dataFileId.toString()
+    });
+
+    await data.save();
+    
     subcategory.data.push(data);
     await Data.updateOne({name: category.name}, {$set: {subcategories: category.subcategories}});
     return (res.status(200).send({message: "Data added"}));
