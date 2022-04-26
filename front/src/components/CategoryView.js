@@ -34,7 +34,7 @@ export default class CategoryView extends React.Component {
 										})}
 									</div>
 								</Button>
-								<DeleteButton delete={() => this.props.deleteCategory(index)} itemTypeName="subcategory"
+								<DeleteButton delete={() => this.props.deleteCategory(index)} itemTypeName="category"
 									style={{
 										right: "20px",
 										bottom: "20px",

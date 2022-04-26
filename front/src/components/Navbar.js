@@ -4,6 +4,7 @@ import VectorIcon1 from '../assets/Vector1.png';
 import { useNavigate } from 'react-router-dom';
 import NavBarDropDown from './NavBarDropDown';
 import ThemeToggle from './ThemeToggle';
+import { logout } from '../Backend';
 const Navbar = () => {
     const navigate = useNavigate();
     const options = [{
@@ -15,6 +16,9 @@ const Navbar = () => {
     }, {
         label: "Testing",
         onClick: () => { navigate('/testing'); }
+    }, {
+        label: "Logout",
+        onClick: () => { logout().catch((error)=>alert(error)); navigate('/login'); }
     }]
 
     const goHome = () => { 
