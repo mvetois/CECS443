@@ -41,14 +41,8 @@ export default class AddDocument extends Component {
     submitForm = async (event) => {
         event.preventDefault();
 
-        console.log(this.state);
-        
-        let res = await addData(this.props.categoryName, this.props.subcatName, this.state.formInput.title, this.state.formInput.desc, this.state.formInput.lang, this.state.formInput.file)
-            .catch((error) => {
-                alert(error);
-                return -1;
-            });
-        if(res === -1) return;
+        //Add document and only close the modal if it was successful
+        if(this.props.addDocument(this.state.formInput) === -1) return;
         
         //Close modal
         this.handleClose();
