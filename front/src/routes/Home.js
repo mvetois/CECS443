@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { addCategory, addSubcat, getCategories } from "../Backend";
 import CategoryView from "../components/CategoryView";
 import Sidebar from "../components/Sidebar";
@@ -7,6 +8,7 @@ import SubcategoryView from "../components/SubcategoryView";
 //Home page showing the file system and allowing the user to traverse it
 export default class Home extends React.Component {
     componentDidMount = async () => {
+        this.mounted = true;
         const urlParams = new URLSearchParams(document.location.search);
 
         //Setting up page to accurately represent what's shown in the URL search parameters
@@ -14,15 +16,19 @@ export default class Home extends React.Component {
         tempCat = (tempCat !== null ? tempCat : -1);
         tempSubcat = (tempSubcat !== null ? tempSubcat : -1);
         
-        //Getting the categories from the database
+        //Getting the categories from the database, redirect if not logged in
         let categories = await getCategories().catch((error) => {
-            alert(error);
+            if(error.message === "User is not logged in") 
+                document.location.replace("/login");
+            else alert(error);
             return null;
         });
-        this.setState({
+        this.mounted && this.setState({
             categories: categories
         }, () => this.setSelected(tempCat, tempSubcat));
     }
+
+    componentWillUnmount = () => this.mounted = false;
 
     //Updates the view to include new data and switch to different views if there's been a new selection
     updateView = () => {
