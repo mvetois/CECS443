@@ -25,9 +25,7 @@ export default class AddDocument extends Component {
     handleChange = (event) => {
         let val = event.target.value;
 
-        //Doing this to handle radio button input
-        if(event.target.id==="lang") val = event.target.ariaLabel;
-        else if(event.target.id==="file") val = event.target.files[0];
+        if(event.target.id==="file") val = event.target.files[0];
 
         this.setState((prevState) => {
             return {
@@ -40,15 +38,20 @@ export default class AddDocument extends Component {
     }
 
     //Submits the data entered in the add document form
-    submitForm = (event) => {
+    submitForm = async (event) => {
         event.preventDefault();
-        this.handleClose();
+
+        console.log(this.state);
         
-        addData(this.props.categoryName, this.props.subcatName, this.state.formInput.title, this.state.formInput.desc, this.state.formInput.lang, this.state.formInput.file)
+        let res = await addData(this.props.categoryName, this.props.subcatName, this.state.formInput.title, this.state.formInput.desc, this.state.formInput.lang, this.state.formInput.file)
             .catch((error) => {
                 alert(error);
+                return -1;
             });
+        if(res === -1) return;
         
+        //Close modal
+        this.handleClose();
         //Clear form
         this.setState({formInput: {}});
     }
@@ -72,17 +75,17 @@ export default class AddDocument extends Component {
                                         <Form.Check
                                             inline
                                             label="Français"
+                                            value="FR"
                                             name="lang"
                                             type="radio"
-                                            aria-label="FR"
                                             required
                                         />
                                         <Form.Check
                                             inline
                                             label="English"
+                                            value="EN"
                                             name="lang"
                                             type="radio"
-                                            aria-label="EN"
                                             required
                                         />
                                     </div>
