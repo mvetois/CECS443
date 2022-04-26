@@ -19,7 +19,7 @@ export default class CategoryView extends React.Component {
 		if(categories.length === 0) return <h5>There are currently no categories</h5>
 
 		//Returning grid of categories
-		return <React.Fragment> <h2>List of Categories</h2>
+		return <React.Fragment>
 			<div className="dynamic-grid">
 					{categories.map((cat, index) => {
 						return (
@@ -52,6 +52,7 @@ export default class CategoryView extends React.Component {
 			<div style={{position: "relative"}}>
 				{/* TODO Add a check for if this user is admin to show the add subcat button */}
 				<AddCategory addCategory={(name) => this.props.addCategory(name)} style={{right: "0px", position: "absolute"}}/>
+				<h2>List of Categories</h2>
 				{this.getCategoriesGrid()}
 			</div>
 		)

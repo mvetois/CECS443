@@ -31,10 +31,10 @@ export default class DocumentsView extends React.Component {
 		if(this.props.subcategory === null || !this.state) return <h2>Loading...</h2>
 
 		//List of documents is empty
-		if(this.state.subcategory.data === undefined) return <h5>There are currently no documents</h5>
+		if(this.state.subcategory.data.length === 0) return <h5>There are currently no documents</h5>
 
 		//Returning grid of subcategories
-		return <React.Fragment> <h2>{this.props.category.name + " - " + this.props.subcategory.name}</h2>
+		return <React.Fragment>
                 <div className="dynamic-grid">
 					{this.state.subcategory.data.map((doc, index) => {
 						return (
@@ -94,9 +94,14 @@ export default class DocumentsView extends React.Component {
 
 		return (
 			<div style={{position: "relative"}}>
-                <Button variant="danger" onClick={()=>this.props.goBack()} style={{left: "0px", position: "absolute"}}>Temp Back Button</Button>
+                <Button className="clear-button" variant="danger" onClick={()=>this.props.goBack()} 
+					style={{
+						left: "0px", 
+						position: "absolute",
+					}}>{"<"}</Button>
                 {/* TODO Add a check for if this user is admin to show the add document button */}
 				<AddDocument addDocument={(doc)=>this.addDocument(doc)} style={{right: "0px", position: "absolute"}}/>
+				<h2>{this.props.category.name + " - " + this.props.subcategory.name}</h2>
 				{this.getCategoriesGrid()}
 			</div>
 		);

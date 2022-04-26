@@ -68,6 +68,19 @@ input.descBox {
   text-align: center;
 }
 
+.clear-button {
+  background-color: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  border-radius: 20px;
+  line-height: 25px;
+  color: red !important;
+  font-size: x-large;
+  font-weight: bolder;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
 /*
 Item view styling
 */

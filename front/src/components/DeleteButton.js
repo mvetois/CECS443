@@ -33,19 +33,9 @@ export default class DeleteButton extends Component {
     render = () => {
         return (
             <div>
-                <Button variant="danger" onClick={this.handleOpen} 
+                <Button className="clear-button" variant="danger" onClick={this.handleOpen} 
 					style={{
-						...this.props.style,
-						color: "red",
-						backgroundColor: "transparent",
-						borderColor: "transparent",
-						boxShadow: "none",
-						borderRadius: "20px",
-						lineHeight: "25px",
-						fontSize: "x-large",
-						fontWeight: "bolder",
-						marginRight: "5px",
-						marginBottom: "5px"
+						...this.props.style
 					}}>x</Button>
                 <Modal show={this.state.show} onHide={this.handleClose} size="sm">
                     <Modal.Header closeButton>

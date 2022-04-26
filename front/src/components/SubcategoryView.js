@@ -19,7 +19,7 @@ export default class SubcategoryView extends React.Component {
 		if(this.props.category.subcategories.length === 0) return <h5>There are currently no subcategories</h5>
 
 		//Returning grid of subcategories
-		return <React.Fragment> <h2>{this.props.category.name}</h2>
+		return <React.Fragment>
                 <div className="dynamic-grid">
 					{this.props.category.subcategories.map((subcat, index) => {
 						return (
@@ -52,9 +52,14 @@ export default class SubcategoryView extends React.Component {
 
 		return (
 			<div style={{position: "relative"}}>
-                <Button variant="danger" onClick={()=>this.props.goBack()} style={{left: "0px", position: "absolute"}}>Temp Back Button</Button>
+                <Button className="clear-button" variant="danger" onClick={()=>this.props.goBack()} 
+					style={{
+						left: "0px", 
+						position: "absolute"
+					}}>{"<"}</Button>
                 {/* TODO Add a check for if this user is admin to show the add subcat button */}
                 <AddCategory addCategory={(name) => this.props.addSubcategory(this.props.category ? this.props.category.name : "", name)} style={{right: "0px", position: "absolute"}}/>
+				<h2>{this.props.category.name}</h2>
 				{this.getCategoriesGrid()}
 			</div>
 		)
