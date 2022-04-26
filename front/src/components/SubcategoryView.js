@@ -1,6 +1,8 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
+import { remSubcat } from '../Backend.js';
 import AddCategory from "./AddCategory";
+import DeleteButton from './DeleteButton.js';
 
 //View of all the subcategories in a given category
 export default class SubcategoryView extends React.Component {
@@ -19,14 +21,31 @@ export default class SubcategoryView extends React.Component {
 		//Returning grid of subcategories
 		return <React.Fragment> <h2>{this.props.category.name}</h2>
                 <div className="dynamic-grid">
-					{this.props.category.subcategories.map((cat, index) => {
+					{this.props.category.subcategories.map((subcat, index) => {
 						return (
-							<Button className="grid-item" key={index} onClick={()=>this.handleClick(index)}>
-								{cat.name}
-							</Button>
+							<div key={index} style={{position: "relative"}}>
+								<Button className="grid-item" key={index} onClick={()=>this.handleClick(index)}>
+									<h4>{subcat.name}</h4>
+									{subcat.data ? subcat.data.map((doc, docIndex) => {
+										return (
+											<div key={docIndex} className="grid-item-subtext">{doc.name}</div>
+										)
+									}) : ""}
+								</Button>
+								<DeleteButton delete={() => this.deleteSubcat(index)} itemTypeName="subcategory"
+									style={{
+										right: "20px",
+										bottom: "20px",
+										position: "absolute"
+									}}/>
+							</div>
 						)
 					})}
 			</div></React.Fragment>
+	}
+
+	deleteSubcat = async (index) => {
+		return await this.props.deleteSubcat(this.props.categoryNumber, index);
 	}
 
 	render() {

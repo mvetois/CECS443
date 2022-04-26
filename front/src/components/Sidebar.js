@@ -76,7 +76,7 @@ export default class Sidebar extends Component {
                                 return <Button className="sidebar-item" key={subcatIndex} onClick={() => this.handleSubcategorySelect(index, subcatIndex)} 
                                     style={{
                                         backgroundColor: (index === selected.category && subcatIndex === selected.subcategory ? "#a6a6a6" : "transparent"),
-                                        padding: "10px"
+                                        paddingLeft: "20px"
                                     }}>
                                     {subcat.name}
                                 </Button>

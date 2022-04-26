@@ -84,6 +84,26 @@ Item view styling
   width: 200px;
   height: 200px;
   margin: 20px;
+  background-color: #c4c4c4;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  color: black !important;
+  text-align: left;
+  flex-flow: column;
+  overflow-y: auto;
+  overflow-wrap: anywhere;
+}
+
+.grid-item:hover {
+  background-color: #9a9a9a;
+}
+
+.grid-item:focus {
+  background-color: #9a9a9a;
+}
+
+.grid-item-subtext {
+  margin-left: 10px;
 }
 
 /*
@@ -107,5 +127,4 @@ Sidebar styling
   border-color: transparent !important;
   box-shadow: none !important;
   padding: 0px;
-  line-height: 0px;
 }

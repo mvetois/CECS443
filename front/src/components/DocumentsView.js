@@ -1,7 +1,9 @@
+import { touchRippleClasses } from '@mui/material';
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import { addData, getData } from '../Backend';
+import { addData, getData, remData } from '../Backend';
 import AddDocument from './AddDocument';
+import DeleteButton from './DeleteButton';
 
 //View of all the subcategories in a given category
 export default class DocumentsView extends React.Component {
@@ -32,13 +34,22 @@ export default class DocumentsView extends React.Component {
 		if(this.state.subcategory.data === undefined) return <h5>There are currently no documents</h5>
 
 		//Returning grid of subcategories
-		return <React.Fragment> <h2>{this.props.subcategory.name}</h2>
+		return <React.Fragment> <h2>{this.props.category.name + " - " + this.props.subcategory.name}</h2>
                 <div className="dynamic-grid">
 					{this.state.subcategory.data.map((doc, index) => {
 						return (
-							<Button className="grid-item" key={index} onClick={()=>this.handleClick(index)}>
-								Download {doc.name}
-							</Button>
+							<div key={index} style={{position: "relative"}}>
+								<Button className="grid-item" onClick={()=>this.handleClick(index)}>
+									<h4>{doc.lang + " - " + doc.name}</h4>
+									<div>{doc.description}</div>
+								</Button>
+								<DeleteButton delete={() => this.deleteDocument(index)} itemTypeName="document"
+									style={{
+										right: "20px",
+										bottom: "20px",
+										position: "absolute"
+									}}/>
+							</div>
 						)
 					})}
 			</div></React.Fragment>
@@ -60,6 +71,21 @@ export default class DocumentsView extends React.Component {
 		if(res === -1) return;
 
 		this.updateDocs();
+	}
+
+	deleteDocument = async (index) => {
+		return remData(this.props.category.name, this.state.subcategory.name, this.state.subcategory.data[index].name)
+			.then(()=>{
+				this.setState((prevState) => {
+					prevState.subcategory.data.splice(index, 1);
+					return (prevState);
+				})
+				return true;
+			})
+			.catch((error) => {
+				alert(error);
+				return false;
+			})
 	}
 
 	render() {

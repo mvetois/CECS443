@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import AddCategory from "./AddCategory";
+import DeleteButton from './DeleteButton';
 
 //View of all the categories
 export default class CategoryView extends React.Component {
@@ -22,9 +23,24 @@ export default class CategoryView extends React.Component {
 			<div className="dynamic-grid">
 					{categories.map((cat, index) => {
 						return (
-							<Button className="grid-item" key={index} onClick={() => this.handleClick(index)}>
-								{cat.name}
-							</Button>
+							<div key={index} style={{position: "relative"}}>
+								<Button className="grid-item" key={index} onClick={() => this.handleClick(index)}>
+									<h4>{cat.name}</h4>
+									<div>
+										{cat.subcategories.map((subcat, subcatIndex) => {
+											return (
+												<div key={subcatIndex} className="grid-item-subtext">{subcat.name}</div>
+											)
+										})}
+									</div>
+								</Button>
+								<DeleteButton delete={() => this.props.deleteCategory(index)} itemTypeName="subcategory"
+									style={{
+										right: "20px",
+										bottom: "20px",
+										position: "absolute"
+									}}/>
+							</div>
 						)
 					})}
 			</div></React.Fragment>

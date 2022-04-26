@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { addCategory, addSubcat, getCategories } from "../Backend";
+import { addCategory, addSubcat, getCategories, remCategory, remSubcat } from "../Backend";
 import CategoryView from "../components/CategoryView";
 import DocumentsView from "../components/DocumentsView";
 import Sidebar from "../components/Sidebar";
@@ -34,16 +34,16 @@ export default class Home extends React.Component {
     //Updates the view to include new data and switch to different views if there's been a new selection
     updateView = () => {
         //Default view shows all categories
-        let view = <CategoryView getCategories={this.getCats} setSelected={this.setSelected} addCategory={this.addCategory} />
+        let view = <CategoryView getCategories={this.getCats} setSelected={this.setSelected} addCategory={this.addCategory} deleteCategory={this.deleteCategory} />
 
         if(this.state.selected.category >= 0) {
             let selectedCategory = this.state && this.state.categories.length > this.state.selected.category ? this.state.categories[this.state.selected.category] : null;
             if(this.state.selected.subcategory >= 0) { //If we have a subcategory selected, show all documents in that subcategory
                 let selectedSubcat = selectedCategory && selectedCategory.subcategories.length > this.state.selected.subcategory ? selectedCategory.subcategories[this.state.selected.subcategory] : null;
-                view = <DocumentsView category={selectedCategory} subcategory={selectedSubcat} goBack={()=>this.setSelected(this.state.selected.category)} />
+                view = <DocumentsView key={selectedSubcat.name} category={selectedCategory} subcategory={selectedSubcat} goBack={()=>this.setSelected(this.state.selected.category)} />
             }
             else { //If we just have a category selected, we show the subcategories within
-                view = <SubcategoryView category={selectedCategory} setSelected={this.setSelected} categoryNumber={this.state.selected.category} addSubcategory={this.addSubcategory} goBack={()=>this.setSelected()}/>
+                view = <SubcategoryView category={selectedCategory} setSelected={this.setSelected} categoryNumber={this.state.selected.category} addSubcategory={this.addSubcategory} deleteSubcat={this.deleteSubcat} goBack={()=>this.setSelected()}/>
             }
         }
 
@@ -128,7 +128,38 @@ export default class Home extends React.Component {
                 console.error(error);
                 alert(error); //Error creating new subcategory
             })
+    }
 
+    //Removes the given category and updates the view
+    deleteCategory = async (index) => {
+        return remCategory(this.state.categories[index].name)
+        .then(()=>{
+            this.setState((prevState) => {
+                prevState.categories.splice(index, 1);
+                return (prevState);
+            }, () => this.updateView());
+            return true;
+        })
+        .catch((error) => {
+            alert(error);
+            return false;
+        })
+    }
+
+    //Removes the given subcategory and updates the view
+    deleteSubcat = async (categoryIndex, subcategoryIndex) => {
+        return remSubcat(this.state.categories[categoryIndex].name, this.state.categories[categoryIndex].subcategories[subcategoryIndex].name)
+        .then(()=>{
+            this.setState((prevState) => {
+                prevState.categories[categoryIndex].subcategories.splice(subcategoryIndex, 1);
+                return (prevState);
+            }, () => this.updateView());
+            return true;
+        })
+        .catch((error) => {
+            alert(error);
+            return false;
+        })
     }
 
     render() {
