@@ -43,8 +43,11 @@ export default class AddDocument extends Component {
     submitForm = (event) => {
         event.preventDefault();
         this.handleClose();
-        //TODO Pass down the category and subcategory through props to provide in the addData parameters
-        addData("testCI", "subcat1", this.state.formInput.title, this.state.formInput.desc, this.state.formInput.lang, this.state.formInput.file)
+        
+        addData(this.props.categoryName, this.props.subcatName, this.state.formInput.title, this.state.formInput.desc, this.state.formInput.lang, this.state.formInput.file)
+            .catch((error) => {
+                alert(error);
+            });
         
         //Clear form
         this.setState({formInput: {}});
@@ -53,7 +56,7 @@ export default class AddDocument extends Component {
     render = () => {
         return (
             <div>
-                <Button variant="warning" onClick={this.handleOpen} >Add Document</Button>
+                <Button variant="success" onClick={this.handleOpen} style={{...this.props.style}}>Add</Button>
                 <Modal show={this.state.show} onHide={this.handleClose} size="lg">
                     <Modal.Header closeButton>
                         <Modal.Title>Add a new document</Modal.Title>

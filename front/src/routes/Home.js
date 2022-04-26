@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { addCategory, addSubcat, getCategories } from "../Backend";
 import CategoryView from "../components/CategoryView";
+import DocumentsView from "../components/DocumentsView";
 import Sidebar from "../components/Sidebar";
 import SubcategoryView from "../components/SubcategoryView";
 
@@ -36,13 +37,13 @@ export default class Home extends React.Component {
         let view = <CategoryView getCategories={this.getCats} setSelected={this.setSelected} addCategory={this.addCategory} />
 
         if(this.state.selected.category >= 0) {
+            let selectedCategory = this.state && this.state.categories.length > this.state.selected.category ? this.state.categories[this.state.selected.category] : null;
             if(this.state.selected.subcategory >= 0) { //If we have a subcategory selected, show all documents in that subcategory
-                view = <h2>Temp documents view</h2>
-                //view = <DocumentsView subcategory={
+                let selectedSubcat = selectedCategory && selectedCategory.subcategories.length > this.state.selected.subcategory ? selectedCategory.subcategories[this.state.selected.subcategory] : null;
+                view = <DocumentsView category={selectedCategory} subcategory={selectedSubcat} goBack={()=>this.setSelected(this.state.selected.category)} />
             }
             else { //If we just have a category selected, we show the subcategories within
-                let selectedCategory = this.state && this.state.categories.length > this.state.selected.category ? this.state.categories[this.state.selected.category] : null;
-                view = <SubcategoryView category={selectedCategory} setSelected={this.setSelected} categoryNumber={this.state.selected.category} addSubcategory={this.addSubcategory}/>
+                view = <SubcategoryView category={selectedCategory} setSelected={this.setSelected} categoryNumber={this.state.selected.category} addSubcategory={this.addSubcategory} goBack={()=>this.setSelected()}/>
             }
         }
 
