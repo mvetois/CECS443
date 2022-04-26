@@ -5,6 +5,7 @@ import { Router, Request, Response } from "express";
 import { verifyAccessTokenAdmin } from "../../../helpers/jtw";
 
 import { Data, ICategory, ISubcategory, IData } from "../../../models/Data.model";
+import { DataFile } from "../../../models/DataFile.model";
 
 /* ----- Code ----- */
 
@@ -88,6 +89,8 @@ router.delete("/", verifyAccessTokenAdmin, async (req : Request, res : Response)
     const data : IData = subcategory.data.find((e) => e.name == req.body.name);
     if (!data)
         return (res.status(400).send({error: "Data not found."}));
+
+    await DataFile.deleteOne({ _id: data.data });
     subcategory.data = subcategory.data.filter((e) => e.name != req.body.name);
     subcategories.splice(subcategories.indexOf(subcategory), 1, subcategory);
     await Data.updateOne({name: category.name}, {subcategories : subcategories});

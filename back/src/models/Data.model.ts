@@ -4,8 +4,6 @@ import mongoose, { Schema } from "mongoose";
 
 /* ----- Code ----- */
 
-type fileId = string;
-
 export interface ICategory {
     name: string;
     subcategories: ISubcategory[];
@@ -20,7 +18,7 @@ export interface IData {
     name: string;
     description: string;
     lang: "FR" | "EN";
-    data: fileId;
+    data: mongoose.Types.ObjectId;
 };
 
 const dataSchema = new Schema({

@@ -104,7 +104,7 @@ router.post("/", verifyAccessTokenAdmin, async (req : Request, res : Response) =
         return (res.status(400).send({error: "Lang must be FR or EN"}));
     const categories : ICategory[] = await Data.find({}, {'_id': false});
     if (!categories)
-        return (res.status(400).send({error: "Their is no categories"}));
+        return (res.status(400).send({error: "There are no categories"}));
     const category : ICategory = categories.find((e) => e.name == req.body.category);
     if (!category)
         return (res.status(400).send({error: "Category not found."}));
@@ -113,23 +113,23 @@ router.post("/", verifyAccessTokenAdmin, async (req : Request, res : Response) =
         return (res.status(400).send({error: "Subcategory not found."}));
     const SameName : IData = subcategory.data.find((e) => e.name == req.body.data.name);
     if (SameName)
-        return (res.status(400).send({error: "Data already exist."}));
+        return (res.status(400).send({error: "Data already exists."}));
 
     const dataFileId = new mongoose.Types.ObjectId();
-    const file = new DataFile ({
+    const dataFile = new DataFile({
         _id: dataFileId,
         data: req.body.data.data
     });
-    await file.save();
+    let error = null;
+    await dataFile.save().catch((e) => error = e);
+    if(!(await DataFile.findById(dataFileId)) || error) return res.status(400).send({error: "File failed to upload " + error})
 
-    const data = new Data ({
+    const data : IData = {
         name: req.body.data.name,
         description: req.body.data.description,
         lang: req.body.data.lang,
-        data: dataFileId.toString()
-    });
-
-    await data.save();
+        data: dataFileId
+    };
     
     subcategory.data.push(data);
     await Data.updateOne({name: category.name}, {$set: {subcategories: category.subcategories}});

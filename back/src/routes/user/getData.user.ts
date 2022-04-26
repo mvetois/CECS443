@@ -5,6 +5,7 @@ import { Router, Request, Response } from "express";
 import { verifyAccessToken } from "../../helpers/jtw";
 
 import { Data, ICategory, ISubcategory, IData } from "../../models/Data.model";
+import { DataFile } from "../../models/DataFile.model";
 
 /* ----- Code ----- */
 
@@ -89,7 +90,24 @@ router.get("/", verifyAccessToken,  async (req : Request, res : Response) => {
     const subcategory : ISubcategory = category.subcategories.find((e) => e.name == req.query.subcategory);
     if (!subcategory)
         return (res.status(400).send({error: "Subcategory not found."}));
-    return (res.status(200).send(subcategory));
+    let returnedSubcategory = {
+        name: subcategory.name,
+        data: []
+    };
+
+    for(let i = 0; i < subcategory.data.length; ++i) {
+        let file = await DataFile.findById(subcategory.data[i].data);
+        if(!file) return (res.status(400).send({error: subcategory.data[i].name + " cannot be found"}));
+
+        returnedSubcategory.data.push({
+            name: subcategory.data[i].name,
+            description: subcategory.data[i].description,
+            lang: subcategory.data[i].lang,
+            data: file.data
+        });
+    }
+
+    return (res.status(200).send(JSON.stringify(returnedSubcategory)));
 });
 
 export default router;
