@@ -22,6 +22,7 @@ class App extends Component {
                         <Route path="*" element={<PrivateRoute component={
                             <Routes>
                                 <Route path="/" element={<Home />} />
+                                <Route path="/updatepassword" element={<UpdatePassword />} />
                                 {/* Add other private paths here */}
                             </Routes>
                         }/>} />

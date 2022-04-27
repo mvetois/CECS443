@@ -4,22 +4,29 @@ import VectorIcon1 from '../assets/Vector1.png';
 import { useNavigate } from 'react-router-dom';
 import NavBarDropDown from './NavBarDropDown';
 import ThemeToggle from './ThemeToggle';
-import { logout } from '../Backend';
+import { isLoggedIn, logout } from '../Backend';
 const Navbar = () => {
     const navigate = useNavigate();
-    const options = [{
-      label: "Login",
-      onClick: () => { navigate('/login'); }
-    }, {
-        label: "Register",
-        onClick: () => { navigate('/register'); }
-    }, {
-        label: "Testing",
-        onClick: () => { navigate('/testing'); }
-    }, {
-        label: "Logout",
-        onClick: () => { logout().catch((error)=>alert(error)); navigate('/login'); }
-    }]
+
+    let options;
+    if(isLoggedIn()) {
+        options = [{
+            label: "Update password",
+            onClick: () => { navigate('/updatepassword'); }
+        }, {
+            label: "Logout",
+            onClick: () => { logout().catch((error)=>alert(error)); navigate('/login'); }
+        }];
+    }
+    else {
+        options = [{
+            label: "Login",
+            onClick: () => { navigate('/login'); }
+        }, {
+            label: "Register",
+            onClick: () => { navigate('/register'); }
+        }]
+    }
 
     const goHome = () => { 
         //Reload page if we're already at "/"

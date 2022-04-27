@@ -37,16 +37,19 @@ function updateTokenExpire() {
 	window.localStorage.setItem("token", JSON.stringify({token: token, expires: Date.now() + expireTime}));
 }
 
-//Returns true if the user is an admin, false otherwise
-export function isAdmin() {
-    let decodedToken = null;
+function decodeToken() {
     try {
         let token = getToken();
-        decodedToken = JSON.parse(atob(token.split('.')[1]));
+        if(token) return JSON.parse(atob(token.split('.')[1]));
     } catch (e) {
         console.error(e);
     }
+    return null;
+}
 
+//Returns true if the user is an admin, false otherwise
+export function isAdmin() {
+    let decodedToken = decodeToken();
     return decodedToken ? decodedToken.admin : false;
 }
 
@@ -97,8 +100,10 @@ export const login = async (email, password) => {
 }
 
 //Updates the user's password
-export const updatePassword = async (email, password, newPassword) => {
+export const updatePassword = async (password, newPassword) => {
     let token = getToken();
+    let decodedToken = decodeToken();
+    if(!decodedToken) throw new Error("Error decoding token");
 
     return fetch(backendURL + "/api/user/updatepassword", {
         method: "POST",
@@ -107,7 +112,7 @@ export const updatePassword = async (email, password, newPassword) => {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            "email": email,
+            "email": decodedToken.userID,
             "password": password,
             "newpassword": newPassword
         })
