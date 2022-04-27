@@ -37,6 +37,19 @@ function updateTokenExpire() {
 	window.localStorage.setItem("token", JSON.stringify({token: token, expires: Date.now() + expireTime}));
 }
 
+//Returns true if the user is an admin, false otherwise
+export function isAdmin() {
+    let decodedToken = null;
+    try {
+        let token = getToken();
+        decodedToken = JSON.parse(atob(token.split('.')[1]));
+    } catch (e) {
+        console.error(e);
+    }
+
+    return decodedToken ? decodedToken.admin : false;
+}
+
 //Registers the user with the database using the given email and password
 export const register = async (email, password) => {
     return fetch(backendURL + "/api/user/register", {

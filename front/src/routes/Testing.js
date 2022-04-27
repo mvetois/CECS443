@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import AddDocument from "../components/AddDocument";
 import { register as test1, login as test2, logout as test3, getData as test4, addData as test5, remData as test6,
-        getCategories as test7, addSubcat as test8, remSubcat as test9, isLoggedIn, updatePassword as test10 } from "../Backend";
+        getCategories as test7, addSubcat as test8, remSubcat as test9, isLoggedIn, updatePassword as test10, isAdmin } from "../Backend";
 
 //Testing deleting data
 const remData = async () => {
@@ -83,6 +83,8 @@ const Testing = () => {
         <div>
             <AddDocument />
             {isLoggedIn() ? "logged in" : "logged out"}
+            <br />
+            Admin? {isAdmin() ? "true" : "false"}
             <br />
             <Button variant="secondary" onClick={ping}>Ping</Button>
             <Button variant="primary" onClick={register}>Register</Button>
