@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { updatePassword } from '../Backend';
 
 const UpdatePassword = () => {
     const [currentPwd, setCurrentPwd] = useState('');
@@ -11,11 +12,16 @@ const UpdatePassword = () => {
     const handleLogin = (event) => {
         event.preventDefault();
 
-        /*login(email, password)
-            .then(() => nav("/"))
-            .catch((error) => alert(error));
-
-         */
+        if(newPassword !== confirmNewPwd) alert("New password must match");
+        else 
+            updatePassword(currentPwd, newPassword)
+                .catch((error) => {
+                    if(error.message === "User not found") alert("Current password incorrect");
+                    else alert(error);
+                });
+            alert("Password has been updated");
+            nav("/");
+        
     }
 
     return (
@@ -79,23 +85,6 @@ const UpdatePassword = () => {
                     }}
                 >
                     Submit
-                </button>
-                <button
-                    className="appColor"
-                    onClick={() => {
-                        setNewPassword('');
-                        setConfirmNewPwd('');
-                        setCurrentPwd('');
-                    }}
-                    style={{
-                        marginTop: 20,
-                        width: 300,
-                        borderRadius: 10,
-                        height: 25,
-                        lineHeight: 0
-                    }}
-                >
-                    Clear
                 </button>
             </form>
         </div>

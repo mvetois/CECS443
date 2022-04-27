@@ -81,6 +81,8 @@ const spaceTest = async () => {
 const Testing = () => {
     return <div style={{height: '100%', display: 'flex', padding: "10px"}}>
         <div>
+            <h4>Many of these buttons have broken as the app has been developed</h4>
+            <br />
             <AddDocument />
             {isLoggedIn() ? "logged in" : "logged out"}
             <br />
