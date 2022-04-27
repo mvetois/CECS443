@@ -52,6 +52,7 @@ const Navbar = () => {
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center'}}>
+                <div id="google_translate_element"></div>
                 <NavBarDropDown options={options} />
                 <ThemeToggle colorOne="black" colorTwo="white" />
             </div>
