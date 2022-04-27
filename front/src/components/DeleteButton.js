@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Modal, Button } from "react-bootstrap";
+import { isAdmin } from '../Backend';
 
 //Modal that allows user to add a document
 export default class DeleteButton extends Component {
@@ -33,10 +34,10 @@ export default class DeleteButton extends Component {
     render = () => {
         return (
             <div>
-                <Button className="clear-button" variant="danger" onClick={this.handleOpen} 
+                {isAdmin() && <Button className="clear-button" variant="danger" onClick={this.handleOpen}
 					style={{
 						...this.props.style
-					}}>x</Button>
+					}}>x</Button>}
                 <Modal show={this.state.show} onHide={this.handleClose} size="sm">
                     <Modal.Header closeButton>
                         <Modal.Title>Are you sure you want to delete this {this.props.itemTypeName}?</Modal.Title>

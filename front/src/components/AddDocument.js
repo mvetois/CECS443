@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Modal, Button, Form } from "react-bootstrap";
-import { addData } from "../Backend";
+import { addData, isAdmin } from "../Backend";
 
 //Modal that allows user to add a document
 export default class AddDocument extends Component {
@@ -53,7 +53,7 @@ export default class AddDocument extends Component {
     render = () => {
         return (
             <div>
-                <Button variant="success" onClick={this.handleOpen} style={{...this.props.style}}>Add</Button>
+                {isAdmin() && <Button variant="success" onClick={this.handleOpen} style={{...this.props.style}}>Add</Button>}
                 <Modal show={this.state.show} onHide={this.handleClose} size="lg">
                     <Modal.Header closeButton>
                         <Modal.Title>Add a new document</Modal.Title>

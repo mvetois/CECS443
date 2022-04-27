@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Modal, Button, Form } from "react-bootstrap";
+import { isAdmin } from '../Backend';
 
 //Modal that allows user to add a document
 export default class AddCategory extends Component {
@@ -48,7 +49,7 @@ export default class AddCategory extends Component {
     render = () => {
         return (
             <div>
-                <Button variant="success" onClick={this.handleOpen} style={this.props.style}>Add</Button>
+                {isAdmin() && <Button variant="success" onClick={this.handleOpen} style={this.props.style}>Add</Button>}
                 <Modal show={this.state.show} onHide={this.handleClose} size="sm">
                     <Modal.Header closeButton>
                         <Modal.Title>Enter a name</Modal.Title>
