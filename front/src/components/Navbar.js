@@ -1,10 +1,12 @@
 import React from 'react';
 import VectorIcon from '../assets/Vector.png';
 import VectorIcon1 from '../assets/Vector1.png';
+import moon from '../assets/moon.png';
 import { useNavigate } from 'react-router-dom';
 import NavBarDropDown from './NavBarDropDown';
 import ThemeToggle from './ThemeToggle';
 import { isLoggedIn, logout } from '../Backend';
+
 const Navbar = () => {
     const navigate = useNavigate();
 
@@ -54,14 +56,16 @@ const Navbar = () => {
                     marginLeft: "18px",
                     marginBottom: "11px"
                 }}>
-                <img src={VectorIcon} width="150" style={{marginBottom: "9.17px"}}/>
-                <img src={VectorIcon1} width="150" />
+                <img src={VectorIcon} width="110" style={{marginBottom: "9.17px"}}/>
+                <img src={VectorIcon1} width="110" />
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center'}}>
                 <div id="google_translate_element"></div>
                 <NavBarDropDown options={options} />
-                <ThemeToggle colorOne="black" colorTwo="white" />
+                <img src={moon} width="25" />
+
+
             </div>
 
         </div>

@@ -11,6 +11,7 @@ import Login from "./routes/accounts/login";
 import Register from "./routes/accounts/register";
 import Navbar from "./components/Navbar";
 import UpdatePassword from "./routes/UpdatePassword";
+import DarkMode from "./components/DarkMode";
 
 class App extends Component {
     render() {
@@ -26,11 +27,14 @@ class App extends Component {
                                 {/* Add other private paths here */}
                             </Routes>
                         }/>} />
+                        
+
                         {/* Paths here do not require login */}
                         <Route path="/testing" element={<Testing />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
                         <Route path="/forgetpassword" element={<UpdatePassword />} />
+
                     </Routes>
                 </BrowserRouter>
             </div>
