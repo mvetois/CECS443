@@ -63,11 +63,7 @@ const Navbar = () => {
             <div style={{ display: 'flex', alignItems: 'center'}}>
                 <div id="google_translate_element"></div>
                 <NavBarDropDown options={options} />
-                <img src={moon} width="25" />
-
-
             </div>
-
         </div>
     );
 }
