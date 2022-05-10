@@ -19,7 +19,7 @@ class App extends Component {
         return (
 
             <div style={{height: "100%", display: "flex", flexDirection: "column"}}>
-                <DarkMode/>
+                {/*<DarkMode/>*/}
                 <BrowserRouter>
                     <Navbar />
 
