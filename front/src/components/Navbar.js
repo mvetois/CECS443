@@ -1,10 +1,8 @@
 import React from 'react';
 import VectorIcon from '../assets/Vector.png';
 import VectorIcon1 from '../assets/Vector1.png';
-import moon from '../assets/moon.png';
 import { useNavigate } from 'react-router-dom';
 import NavBarDropDown from './NavBarDropDown';
-import ThemeToggle from './ThemeToggle';
 import { isLoggedIn, logout } from '../Backend';
 
 const Navbar = () => {
