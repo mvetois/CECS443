@@ -38,7 +38,6 @@ class App extends Component {
                         <Route path="/testing" element={<Testing />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
-                        <Route path="/forgetpassword" element={<UpdatePassword />} />
                     </Routes>
                 </BrowserRouter>
 
